@@ -1,0 +1,57 @@
+{
+  "name": "d2c.web",
+  "version": "0.1.0",
+  "description": "D2C Web",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "polished": "^4.1.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.8.8",
+    "react-number-format": "^4.6.3",
+    "react-scripts": "4.0.3",
+    "styled-components": "^5.3.0",
+    "web-vitals": "^1.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject",
+    "build:liferay": "lnbs-build",
+    "deploy:liferay": "npm run build:liferay && lnbs-deploy"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "liferay-npm-build-support": "^2.24.0",
+    "liferay-npm-bundler": "^2.24.0",
+    "liferay-npm-bundler-preset-create-react-app": "^2.24.0"
+  },
+  "portlet": {
+    "com.liferay.portlet.display-category": "Application",
+    "com.liferay.portlet.instanceable": true,
+    "javax.portlet.name": "com_liferay_gs_raylife_d2c_portlet_D2CApplicationPortlet",
+    "javax.portlet.security-role-ref": "power-user,user",
+    "javax.portlet.resource-bundle": "content.Language",
+    "javax.portlet.display-name": "D2C Application"
+  }
+}
