@@ -5,6 +5,8 @@ import { StyleSheetManager } from "styled-components";
 import { App } from "./App";
 import { Providers } from "./Providers";
 
+const TAG_NAME = "d2c-web";
+
 class WebComponent extends HTMLElement {
   constructor() {
     super();
@@ -18,7 +20,7 @@ class WebComponent extends HTMLElement {
     this.shadowRoot.appendChild(this.mountPoint);
 
     ReactDOM.render(
-      <StyleSheetManager target={this.styleHost}>
+      <StyleSheetManager target={this.styleHost} disableCSSOMInjection>
         <Providers>
           <App />
         </Providers>
@@ -28,6 +30,6 @@ class WebComponent extends HTMLElement {
   }
 }
 
-if (!customElements.get("d2c-web")) {
-  customElements.define("d2c-web", WebComponent);
+if (!customElements.get(TAG_NAME)) {
+  customElements.define(TAG_NAME, WebComponent);
 }
