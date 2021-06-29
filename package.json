@@ -20,8 +20,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "build:liferay": "lnbs-build",
-    "deploy:liferay": "npm run build:liferay && lnbs-deploy"
+    "build:liferay": "yarn build && ./setup-liferay.sh",
+    "serve:liferay": "npx serve ./build"
   },
   "eslintConfig": {
     "extends": [
@@ -40,18 +40,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "liferay-npm-build-support": "^2.24.0",
-    "liferay-npm-bundler": "^2.24.0",
-    "liferay-npm-bundler-preset-create-react-app": "^2.24.0"
-  },
-  "portlet": {
-    "com.liferay.portlet.display-category": "Application",
-    "com.liferay.portlet.instanceable": true,
-    "javax.portlet.name": "com_liferay_gs_raylife_d2c_portlet_D2CApplicationPortlet",
-    "javax.portlet.security-role-ref": "power-user,user",
-    "javax.portlet.resource-bundle": "content.Language",
-    "javax.portlet.display-name": "D2C Application"
   }
 }
