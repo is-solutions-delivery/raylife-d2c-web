@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 import { Input } from "../../../fragments/Forms/Input";
@@ -17,13 +17,19 @@ import {
 const setFormPath = (value) => `basics.business-information.${value}`;
 
 export const FormBasicBusinessInformation = () => {
+  const ref = useRef();
   const { setSection } = useStepWizard();
-  const { register, control, formState, setValue } = useFormContext();
   const { states, setAutoComplete } = useLocation();
+  const {
+    register,
+    control,
+    setValue,
+    formState: { isValid },
+  } = useFormContext();
 
   useEffect(() => {
-    setAutoComplete("business-address-input", updateFormWithGoogleAddress);
-  }, []);
+    if (ref.current) setAutoComplete(ref.current, updateFormWithGoogleAddress);
+  }, [ref]);
 
   const updateFormWithGoogleAddress = (address) => {
     setValue(setFormPath("business.location.city"), address.city);
@@ -45,27 +51,24 @@ export const FormBasicBusinessInformation = () => {
       <CardContent>
         <div className="content-row">
           <Input
-            name="firstName"
-            label="First Name"
             {...register(setFormPath("firstName"), {
               required: true,
             })}
+            label="First Name"
           />
           <Input
-            name="lastName"
-            label="Last Name"
             {...register(setFormPath("lastName"), {
               required: true,
             })}
+            label="Last Name"
           />
         </div>
         <Input
-          name="email"
-          label="Business Email"
-          type="email"
           {...register(setFormPath("business.email"), {
             required: true,
           })}
+          label="Business Email"
+          type="email"
         />
         <Controller
           name={setFormPath("business.phone")}
@@ -82,11 +85,9 @@ export const FormBasicBusinessInformation = () => {
           )}
         />
         <Input
-          name="businessWebsite"
-          label="Business Website (optional)"
           {...register(setFormPath("business.website"))}
+          label="Business Website (optional)"
         />
-
         <div
           className="content-row"
           style={{
@@ -94,19 +95,23 @@ export const FormBasicBusinessInformation = () => {
             gridTemplateColumns: "1fr 35%",
           }}
         >
-          <Input
-            id="business-address-input"
-            name="businessAddress"
-            label="Physical Business Address"
-            placeholder="Street address"
-            {...register(setFormPath("business.location.address"), {
-              required: true,
-            })}
+          <Controller
+            name={setFormPath("business.location.address")}
+            control={control}
+            defaultValue=""
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Input
+                {...field}
+                label="Physical Business Address"
+                placeholder="Street address"
+                ref={ref}
+              />
+            )}
           />
           <Input
-            name="businessAddressApt"
-            placeholder="Apt/Suite (optional)"
             {...register(setFormPath("business.location.addressApt"))}
+            placeholder="Apt/Suite (optional)"
           />
         </div>
 
@@ -118,22 +123,20 @@ export const FormBasicBusinessInformation = () => {
           }}
         >
           <Input
-            name="city"
-            label="City"
             {...register(setFormPath("business.location.city"), {
               required: true,
             })}
+            label="City"
           />
           <SelectInput
-            name="state"
-            label="State"
-            maxLength={2}
             {...register(setFormPath("business.location.state"), {
               maxLength: 2,
               pattern: /[A-Za-z]/g,
               required: true,
               value: "AL",
             })}
+            label="State"
+            maxLength={2}
           >
             {states.map(({ abbreviation }, index) => (
               <option key={`${abbreviation}-${index}`} value={abbreviation}>
@@ -142,14 +145,13 @@ export const FormBasicBusinessInformation = () => {
             ))}
           </SelectInput>
           <Input
-            name="zip"
-            label="ZIP"
-            maxLength={5}
             {...register(setFormPath("business.location.zip"), {
               minLength: 5,
               required: true,
               pattern: /[0-9]/g,
             })}
+            label="ZIP"
+            maxLength={5}
           />
         </div>
       </CardContent>
@@ -160,7 +162,7 @@ export const FormBasicBusinessInformation = () => {
           <SecondarySolidButton
             type="submit"
             onClick={goToNextForm}
-            disabled={!formState.isValid}
+            disabled={!isValid}
           >
             Continue
           </SecondarySolidButton>

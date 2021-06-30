@@ -10,6 +10,11 @@ const autocomplete = (input) => {
       "google is not defined. Please check the Google Maps API key within System Settings and ensure a valid API key is entered"
     );
 
+  if (!input)
+    throw new Error(
+      "No HTMLElement was found as input. Ensure a valid HTMLElement reference is passed!"
+    );
+
   // Prevent crashes if the user hits enter in a autocomplete search
   google.maps.event.addDomListener(input, "keydown", (event) => {
     if (event.keyCode === 13 || event.key === "Enter") {

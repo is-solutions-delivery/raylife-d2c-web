@@ -20,10 +20,9 @@ export const useLocation = () => {
     }
   };
 
-  const setAutoComplete = (id, callback) => {
+  const setAutoComplete = (htmlElement, callback) => {
     try {
-      const input = document.getElementById(id);
-      const autocomplete = GoogleMapsService.autocomplete(input);
+      const autocomplete = GoogleMapsService.autocomplete(htmlElement);
       const infoWindow = GoogleMapsService.InfoWindow();
 
       autocomplete.addListener("place_changed", () => {
