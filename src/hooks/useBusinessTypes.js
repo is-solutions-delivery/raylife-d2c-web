@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MockService } from "../services/mock";
+import { LiferayService } from "../services/liferay";
 
 export const useBusinessTypes = () => {
   const [data, setData] = useState();
@@ -11,7 +11,7 @@ export const useBusinessTypes = () => {
 
   const loadBusinessTypes = async (search = "") => {
     try {
-      const response = await MockService.getBusinessTypes(search);
+      const response = await LiferayService.getBusinessTypes(search);
       setData(response);
     } catch (error) {
       console.warn(error);
