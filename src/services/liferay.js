@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-const BASE_URL = "http://demo7852368.mockable.io/liferay";
+const BASE_URL = "https://demo7852368.mockable.io/liferay";
 
 const LiferayAPI = Axios.create({
   baseURL: BASE_URL,
