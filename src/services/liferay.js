@@ -3,6 +3,11 @@ import Axios from "axios";
 const { REACT_APP_LIFERAY_API = "http://localhost:8080/api/jsonws" } =
   process.env;
 
+// eslint-disable-next-line no-undef
+const _getLiferayGroupId = () => Liferay.ThemeDisplay.getSiteGroupId() | "";
+// eslint-disable-next-line no-undef
+const _getLiferayToken = () => Liferay.authToken | "";
+
 const LiferayAPI = Axios.create({
   baseURL: REACT_APP_LIFERAY_API,
 });
@@ -44,9 +49,11 @@ const _getAssetCategoriesByParentId = async (id = "42648") => {
   const {
     data: { categories },
   } = await LiferayAPI.get("/assetcategory/search-categories-display", {
+    headers: {
+      "x-csrf-token": _getLiferayToken(),
+    },
     params: {
-      // eslint-disable-next-line no-undef
-      groupIds: Liferay.ThemeDisplay.getSiteGroupId(),
+      groupIds: _getLiferayGroupId(),
       parentCategoryIds: id,
     },
   });
