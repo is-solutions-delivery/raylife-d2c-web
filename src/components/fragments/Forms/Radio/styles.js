@@ -9,6 +9,7 @@ export const RadioAreaStyled = styled.div`
   gap: 0.75rem;
   border: 1px solid ${(props) => rgba(getNeutralColor(props), 0.25)};
   border-radius: 0.5rem;
+  cursor: pointer;
 
   & > .content {
     display: flex;

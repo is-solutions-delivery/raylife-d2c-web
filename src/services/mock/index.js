@@ -1,31 +1,6 @@
-import { BUSINESS_TYPES, PRODUCT_QUOTES, US_STATES } from "./data";
+import { PRODUCT_QUOTES, US_STATES } from "./data";
 
 const MOCK_TIMEOUT = 200;
-
-/**
- * @param {string} filter - Search string used to filter the results
- * @returns {Promise<{
- * id: string
- * title: string
- * description: string
- * }[]>} Filtered Array of business types
- */
-const getBusinessTypes = (filter = "") =>
-  new Promise((resolve) => {
-    setTimeout(() => {
-      if (!filter.length) resolve([]);
-
-      const normalizedFilter = filter.toLowerCase().replace(/\\/g, "");
-
-      const filteredBusinessTypes = BUSINESS_TYPES.filter(
-        ({ title, description }) =>
-          title.toLowerCase().match(normalizedFilter) ||
-          description.toLowerCase().match(normalizedFilter)
-      );
-
-      resolve(filteredBusinessTypes);
-    }, MOCK_TIMEOUT);
-  });
 
 /**
  * @returns {Promise<{
@@ -56,7 +31,6 @@ const getUSStates = () =>
   });
 
 export const MockService = {
-  getBusinessTypes,
   getProductQuotes,
   getUSStates,
 };

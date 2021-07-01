@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-
 /**
  * @param {HTMLElement} input - Pass HTML element
  * @returns {any} Google Maps Autocomplete Instance
@@ -42,14 +41,7 @@ const InfoWindow = () => {
 
 /**
  * @param {any} autocomplete - Google Maps Autocomplete Instance
- * @returns {{
- *  streetNumber: string
- *  street: string
- *  city: string
- *  state: string
- *  country: string
- *  zip: string
- * }} Normalized Address Object
+ * @returns {Address} Normalized Address Object
  */
 const getAutocompletePlaces = (autocomplete) => {
   const place = autocomplete.getPlace();
@@ -58,14 +50,7 @@ const getAutocompletePlaces = (autocomplete) => {
 
 /**
  * @param {Array} addressComponents - Google Maps Address Component
- * @returns {{
- *  streetNumber: string
- *  street: string
- *  city: string
- *  state: string
- *  country: string
- *  zip: string
- * }} Normalized Address Object
+ * @returns {Address} Normalized Address Object
  */
 const _adaptGoogleMapsAddressIntoAddress = (addressComponents) => {
   const address = {
@@ -116,3 +101,14 @@ export const GoogleMapsService = {
   InfoWindow,
   getAutocompletePlaces,
 };
+
+/**
+ * @typedef {{
+ *  streetNumber: string
+ *  street: string
+ *  city: string
+ *  state: string
+ *  country: string
+ *  zip: string
+ * }} Address
+ */

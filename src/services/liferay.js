@@ -1,21 +1,30 @@
 import Axios from "axios";
 import Cookies from "js-cookie";
 
-const { REACT_APP_LIFERAY_API = "http://localhost:8080/api/jsonws" } =
-  process.env;
+const {
+  REACT_APP_LIFERAY_API = "",
+  REACT_APP_LIFERAY_AUTH_USERNAME = "",
+  REACT_APP_LIFERAY_AUTH_PASSWORD = "",
+} = process.env;
 
-const _getLiferayGroupId = () => {
+/**
+ * @returns {string} Liferay Group Id
+ */
+const getLiferayGroupId = () => {
   try {
     // eslint-disable-next-line no-undef
     const groupId = Liferay.ThemeDisplay.getSiteGroupId();
     return groupId;
   } catch (error) {
-    console.warn("Not able to find Liferay GroupId\n", error);
+    console.warn("Not able to find Liferay Group Id\n", error);
     return "";
   }
 };
 
-const _getLiferayToken = () => {
+/**
+ * @returns {string} Liferay Authentication Token
+ */
+const getLiferayAuthenticationToken = () => {
   try {
     // eslint-disable-next-line no-undef
     const token = Liferay.authToken;
@@ -29,21 +38,17 @@ const _getLiferayToken = () => {
 const LiferayAPI = Axios.create({
   baseURL: REACT_APP_LIFERAY_API,
   auth: {
-    username: "test@liferay.com",
-    password: "test",
+    username: REACT_APP_LIFERAY_AUTH_USERNAME,
+    password: REACT_APP_LIFERAY_AUTH_PASSWORD,
   },
   headers: {
-    "x-csrf-token": _getLiferayToken(),
+    "x-csrf-token": getLiferayAuthenticationToken(),
   },
 });
 
 /**
  * @param {string} filter - Search string used to filter the results
- * @returns {Promise<{
- * id: string
- * title: string
- * description: string
- * }[]>} Filtered Array of business types
+ * @returns {Promise<BusinessType[]>} Filtered Array of business types
  */
 const getBusinessTypes = async (filter = "") => {
   if (!filter.length) return [];
@@ -65,19 +70,14 @@ const getBusinessTypes = async (filter = "") => {
 
 /**
  * @param {string} id - Parent category Id of asset categories
- * @returns {Promise<{
- * categoryId: string
- * titleCurrentValue: string
- * descriptionCurrentValue: string
- * parentCategoryId: string
- * }[]>}  Array of matched categories
+ * @returns {Promise<AssetCategoryResponse[]>}  Array of matched categories
  */
 const _getAssetCategoriesByParentId = async (id) => {
   const {
     data: { categories },
   } = await LiferayAPI.get("/assetcategory/search-categories-display", {
     params: {
-      groupIds: _getLiferayGroupId(),
+      groupIds: getLiferayGroupId(),
       parentCategoryIds: id,
       title: "",
       vocabularyIds: "",
@@ -90,17 +90,8 @@ const _getAssetCategoriesByParentId = async (id) => {
 };
 
 /**
- * @param {{
- * categoryId: string
- * titleCurrentValue: string
- * descriptionCurrentValue: string
- * parentCategoryId: string
- * }[]}  data Array of matched categories
- * @returns {{
- * id: string
- * title: string
- * description: string
- * }[]} Array of business types
+ * @param {AssetCategory[]}  data Array of matched categories
+ * @returns {BusinessType[]} Array of business types
  */
 const _adaptAssetCategories = (data = []) =>
   data.map(({ categoryId, titleCurrentValue, descriptionCurrentValue }) => ({
@@ -109,6 +100,63 @@ const _adaptAssetCategories = (data = []) =>
     description: descriptionCurrentValue,
   }));
 
-export const LiferayService = {
-  getBusinessTypes,
+/**
+ * @param {string} categoryId - Asset Category Id
+ * @returns {Promise<number>} Business Class Code
+ */
+const getBusinessClassCode = async (categoryId) => {
+  const categoryProperties = await _getCategoryProperties(categoryId);
+
+  const businessClassCode = categoryProperties.find(({ key }) => key === "BCC");
+
+  return businessClassCode.value;
 };
+
+/**
+ * @param {string} id - Parent category Id of asset categories
+ * @returns {Promise<CategoryPropertyResponse[]>}  Array of matched categories
+ */
+const _getCategoryProperties = async (id) => {
+  const { data } = await LiferayAPI.get(
+    "/assetcategoryproperty/get-category-properties",
+    {
+      params: {
+        entryId: id,
+      },
+    }
+  );
+
+  return data;
+};
+
+export const LiferayService = {
+  LiferayAPI,
+  getBusinessTypes,
+  getLiferayAuthenticationToken,
+  getLiferayGroupId,
+  getBusinessClassCode,
+};
+
+/**
+ * @typedef {{
+ * categoryId: string
+ * titleCurrentValue: string
+ * descriptionCurrentValue: string
+ * parentCategoryId: string
+ * }} AssetCategoryResponse
+ */
+
+/**
+ * @typedef {{
+ * key: string
+ * value: string
+ * }} CategoryPropertyResponse
+ */
+
+/**
+ * @typedef {{
+ * id: string
+ * title: string
+ * description: string
+ * }} BusinessType
+ */

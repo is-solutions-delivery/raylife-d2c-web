@@ -1,0 +1,1 @@
+npx json-server -p 8080 -d 200 db.json --routes routes.json

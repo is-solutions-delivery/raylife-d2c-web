@@ -1,0 +1,4 @@
+{
+  "/assetcategory/search-categories-display?*": "/categories",
+  "/assetcategoryproperty/get-category-properties?*": "/properties"
+}
