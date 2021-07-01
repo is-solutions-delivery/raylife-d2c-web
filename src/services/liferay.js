@@ -40,11 +40,13 @@ const getBusinessTypes = async (filter = "") => {
  * parentCategoryId: string
  * }[]>}  Array of matched categories
  */
-const _getAssetCategoriesByParentId = async (id = "41815") => {
+const _getAssetCategoriesByParentId = async (id = "42648") => {
   const {
     data: { categories },
   } = await LiferayAPI.get("/assetcategory/search-categories-display", {
     params: {
+      // eslint-disable-next-line no-undef
+      groupIds: Liferay.ThemeDisplay.getSiteGroupId(),
       parentCategoryIds: id,
     },
   });
