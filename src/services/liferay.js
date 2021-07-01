@@ -45,7 +45,7 @@ const _getAssetCategoriesByParentId = async (id = "41815") => {
     data: { categories },
   } = await LiferayAPI.get("/assetcategory/search-categories-display", {
     params: {
-      parentCategoryIds: `[${id}]`,
+      parentCategoryIds: id,
     },
   });
 
