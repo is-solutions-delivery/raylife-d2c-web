@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-const { REACT_APP_LIFERAY_API = "https://demo7852368.mockable.io" } =
+const { REACT_APP_LIFERAY_API = "http://localhost:8080/api/jsonws" } =
   process.env;
 
 const LiferayAPI = Axios.create({
