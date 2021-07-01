@@ -1,17 +1,11 @@
 import Axios from "axios";
 
-const BASE_URL = "https://demo7852368.mockable.io/liferay";
+const { REACT_APP_LIFERAY_API = "https://demo7852368.mockable.io" } =
+  process.env;
 
 const LiferayAPI = Axios.create({
-  baseURL: BASE_URL,
+  baseURL: REACT_APP_LIFERAY_API,
 });
-
-const _adaptBusinessClassResponse = (data = []) =>
-  data.map(({ businessClassCode, businessType, secondaryText }) => ({
-    id: businessClassCode,
-    title: businessType,
-    description: secondaryText,
-  }));
 
 /**
  * @param {string} filter - Search string used to filter the results
@@ -26,11 +20,9 @@ const getBusinessTypes = async (filter = "") => {
 
   const normalizedFilter = filter.toLowerCase().replace(/\\/g, "");
 
-  const {
-    data: { items },
-  } = await LiferayAPI.get("/bcc");
+  const assetCategories = await _getAssetCategoriesByParentId();
 
-  const filteredBusinessTypes = _adaptBusinessClassResponse(items).filter(
+  const filteredBusinessTypes = _adaptAssetCategories(assetCategories).filter(
     ({ title, description }) =>
       title.toLowerCase().match(normalizedFilter) ||
       description.toLowerCase().match(normalizedFilter)
@@ -38,6 +30,47 @@ const getBusinessTypes = async (filter = "") => {
 
   return filteredBusinessTypes;
 };
+
+/**
+ * @param {string} id - Parent category Id of asset categories
+ * @returns {Promise<{
+ * categoryId: string
+ * titleCurrentValue: string
+ * descriptionCurrentValue: string
+ * parentCategoryId: string
+ * }[]>}  Array of matched categories
+ */
+const _getAssetCategoriesByParentId = async (id = "41815") => {
+  const {
+    data: { categories },
+  } = await LiferayAPI.get("/assetcategory/search-categories-display", {
+    params: {
+      parentCategoryIds: `[${id}]`,
+    },
+  });
+
+  return categories;
+};
+
+/**
+ * @param {{
+ * categoryId: string
+ * titleCurrentValue: string
+ * descriptionCurrentValue: string
+ * parentCategoryId: string
+ * }[]}  data Array of matched categories
+ * @returns {{
+ * id: string
+ * title: string
+ * description: string
+ * }[]} Array of business types
+ */
+const _adaptAssetCategories = (data = []) =>
+  data.map(({ categoryId, titleCurrentValue, descriptionCurrentValue }) => ({
+    id: categoryId,
+    title: titleCurrentValue,
+    description: descriptionCurrentValue,
+  }));
 
 export const LiferayService = {
   getBusinessTypes,
