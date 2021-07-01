@@ -3,13 +3,37 @@ import Axios from "axios";
 const { REACT_APP_LIFERAY_API = "http://localhost:8080/api/jsonws" } =
   process.env;
 
-// eslint-disable-next-line no-undef
-const _getLiferayGroupId = () => Liferay.ThemeDisplay.getSiteGroupId() | "";
-// eslint-disable-next-line no-undef
-const _getLiferayToken = () => Liferay.authToken | "";
+const _getLiferayGroupId = () => {
+  try {
+    // eslint-disable-next-line no-undef
+    const groupId = Liferay.ThemeDisplay.getSiteGroupId();
+    return groupId;
+  } catch (error) {
+    console.warn("Not able to find Liferay GroupId\n", error);
+    return "";
+  }
+};
+
+const _getLiferayToken = () => {
+  try {
+    // eslint-disable-next-line no-undef
+    const token = Liferay.authToken;
+    return token;
+  } catch (error) {
+    console.warn("Not able to find Liferay auth token\n", error);
+    return "";
+  }
+};
 
 const LiferayAPI = Axios.create({
   baseURL: REACT_APP_LIFERAY_API,
+  auth: {
+    username: "test@liferay.com",
+    password: "test",
+  },
+  headers: {
+    "x-csrf-token": _getLiferayToken(),
+  },
 });
 
 /**
@@ -49,12 +73,13 @@ const _getAssetCategoriesByParentId = async (id = "42648") => {
   const {
     data: { categories },
   } = await LiferayAPI.get("/assetcategory/search-categories-display", {
-    headers: {
-      "x-csrf-token": _getLiferayToken(),
-    },
     params: {
       groupIds: _getLiferayGroupId(),
       parentCategoryIds: id,
+      title: "",
+      vocabularyIds: "",
+      start: 0,
+      end: 50,
     },
   });
 
