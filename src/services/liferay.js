@@ -1,4 +1,5 @@
 import Axios from "axios";
+import Cookies from "js-cookie";
 
 const { REACT_APP_LIFERAY_API = "http://localhost:8080/api/jsonws" } =
   process.env;
@@ -49,7 +50,9 @@ const getBusinessTypes = async (filter = "") => {
 
   const normalizedFilter = filter.toLowerCase().replace(/\\/g, "");
 
-  const assetCategories = await _getAssetCategoriesByParentId();
+  const parentId = Cookies.get("CATEGORY_PARENT_ID");
+
+  const assetCategories = await _getAssetCategoriesByParentId(parentId);
 
   const filteredBusinessTypes = _adaptAssetCategories(assetCategories).filter(
     ({ title, description }) =>
@@ -69,7 +72,7 @@ const getBusinessTypes = async (filter = "") => {
  * parentCategoryId: string
  * }[]>}  Array of matched categories
  */
-const _getAssetCategoriesByParentId = async (id = "42648") => {
+const _getAssetCategoriesByParentId = async (id) => {
   const {
     data: { categories },
   } = await LiferayAPI.get("/assetcategory/search-categories-display", {
