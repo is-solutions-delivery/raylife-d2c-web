@@ -9,14 +9,6 @@ const {
   REACT_APP_LIFERAY_AUTH_PASSWORD = "",
 } = process.env;
 
-const LiferayAPI = Axios.create({
-  baseURL: REACT_APP_LIFERAY_API,
-  auth: {
-    username: REACT_APP_LIFERAY_AUTH_USERNAME,
-    password: REACT_APP_LIFERAY_AUTH_PASSWORD,
-  },
-});
-
 /**
  * @param {BasicsForm}  data Basics form object
  * @returns {Promise<number>}  Status code
@@ -139,6 +131,17 @@ const _postBasicsFormApplication = async (payload) => {
   const { status } = await LiferayAPI.post("/o/raylifeapplications", payload);
   return status;
 };
+
+const LiferayAPI = Axios.create({
+  baseURL: REACT_APP_LIFERAY_API,
+  auth: {
+    username: REACT_APP_LIFERAY_AUTH_USERNAME,
+    password: REACT_APP_LIFERAY_AUTH_PASSWORD,
+  },
+  headers: {
+    "x-csrf-token": getLiferayAuthenticationToken(),
+  },
+});
 
 export const LiferayService = {
   LiferayAPI,
