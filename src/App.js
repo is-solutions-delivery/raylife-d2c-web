@@ -22,7 +22,7 @@ export const App = () => {
         <>
           {selectedStep.title}
           <span className="primary">
-            {form.basics["business-information"].business.location.address}
+            {form.basics.businessInformation.business.location.address}
           </span>
         </>
       );

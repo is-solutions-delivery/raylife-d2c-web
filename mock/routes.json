@@ -1,4 +1,5 @@
 {
-  "/assetcategory/search-categories-display?*": "/categories",
-  "/assetcategoryproperty/get-category-properties?*": "/properties"
+  "/api/jsonws/assetcategory/search-categories-display?*": "/categories",
+  "/api/jsonws/assetcategoryproperty/get-category-properties?*": "/properties",
+  "/o/raylifeapplications/": "/applications"
 }

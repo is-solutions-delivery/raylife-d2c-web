@@ -488,5 +488,20 @@
         "value": "Office"
       }
     }
+  ],
+  "applications": [
+    {
+      "id": 0,
+      "address": "string",
+      "addressApt": "string",
+      "city": "string",
+      "email": "string",
+      "firstName": "string",
+      "lastName": "string",
+      "phone": "string",
+      "state": "string",
+      "website": "string",
+      "zip": "string"
+    }
   ]
 }

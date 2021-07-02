@@ -1,3 +1,4 @@
+import "../types";
 /* eslint-disable no-undef */
 /**
  * @param {HTMLElement} input - Pass HTML element
@@ -101,14 +102,3 @@ export const GoogleMapsService = {
   InfoWindow,
   getAutocompletePlaces,
 };
-
-/**
- * @typedef {{
- *  streetNumber: string
- *  street: string
- *  city: string
- *  state: string
- *  country: string
- *  zip: string
- * }} Address
- */

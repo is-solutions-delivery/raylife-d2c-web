@@ -38,7 +38,7 @@ export const FormProperty = () => {
           render={({ field }) => (
             <Switch
               {...field}
-              label={`Do you own the building at ${form.basics["business-information"].business.location.address}?`}
+              label={`Do you own the building at ${form.basics.businessInformation.business.location.address}?`}
             />
           )}
         />

@@ -14,7 +14,7 @@ export const AVAILABLE_STEPS = {
   BASICS_BUSINESS_INFORMATION: {
     title: "Just the business basics!",
     section: "basics",
-    subsection: "business-information",
+    subsection: "businessInformation",
   },
   BASICS_PRODUCT_QUOTE: {
     title: "Select a product.",
