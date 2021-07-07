@@ -88,7 +88,7 @@ export const FormBasicBusinessInformation = () => {
       <CardActions>
         <FlatButton onClick={goToPreviousForm}>Previous</FlatButton>
         <div>
-          <OutlineButton onClick={onSave} disabled={!isValid}>
+          <OutlineButton onClick={onSave}>
             Save & Exit
           </OutlineButton>
           <SecondarySolidButton
