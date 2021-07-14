@@ -5,7 +5,11 @@ import { Radio } from "../../../fragments/Forms/Radio";
 import { AVAILABLE_STEPS } from "../../../../utils/constants";
 import { useStepWizard } from "../../../../hooks/useStepWizard";
 import { InputLabel } from "../../../fragments/Forms/Input/styles";
-import { BadgeButton, SecondarySolidButton } from "../../../fragments/Button";
+import {
+  BadgeButton,
+  FlatButton,
+  SecondarySolidButton,
+} from "../../../fragments/Button";
 import { useProductQuotes } from "../../../../hooks/useProductQuotes";
 import { Card, CardActions, CardContent } from "../../../fragments/Card";
 
@@ -19,6 +23,9 @@ export const FormBasicProductQuote = () => {
   } = useFormContext();
 
   const goToNextForm = () => setSection(AVAILABLE_STEPS.BUSINESS);
+
+  const goToPreviousForm = () =>
+    setSection(AVAILABLE_STEPS.BASICS_BUSINESS_INFORMATION);
 
   return (
     <Card>
@@ -50,6 +57,7 @@ export const FormBasicProductQuote = () => {
         </div>
       </CardContent>
       <CardActions style={{ justifyContent: "center" }}>
+        <FlatButton onClick={goToPreviousForm}>Previous</FlatButton>
         <SecondarySolidButton
           type="submit"
           onClick={goToNextForm}

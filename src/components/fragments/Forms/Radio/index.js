@@ -29,7 +29,6 @@ export const Radio = React.forwardRef(
       >
         <RadioInput
           {...props}
-          ref={ref}
           type="radio"
           name={name}
           checked={selected}
