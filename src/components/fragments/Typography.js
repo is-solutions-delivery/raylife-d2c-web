@@ -1,9 +1,8 @@
-import { rgba } from "polished";
 import styled from "styled-components";
 import { getNeutralColor, getPrimaryColor } from "../../styles/utils";
 
 export const TypographyTitle = styled.h2`
-  font-family: Barlow;
+  font-family: ${({ theme }) => theme.font.family};
   font-size: 2rem;
   font-weight: bolder;
   color: ${(props) => getNeutralColor(props, "darker")};
@@ -17,5 +16,6 @@ export const TypographyTitle = styled.h2`
 export const TypographyParagraph = styled.p`
   font-size: 0.7rem;
   font-weight: 500;
-  color: ${(props) => rgba(getNeutralColor(props, "black"), 0.6)};
+  color: ${(props) => getNeutralColor(props, "black")};
+  opacity: 0.6;
 `;
