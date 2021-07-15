@@ -1,25 +1,25 @@
 export const Theme = {
   colors: {
     primary: {
-      light: "#e1ebff",
-      default: "#4c85ff",
-      dark: "#295ccc",
+      light: "var(--gray-300, #e1ebff)",
+      default: "var(--primary, #4c85ff)",
+      dark: "var(--btn-link-color, #295ccc)",
     },
     secondary: {
-      default: "#f69d37",
-      dark: "#f4870b",
+      default: "var(--secondary, #f69d37)",
+      dark: "var(--btn-secondary-color, #f4870b)",
     },
     neutral: {
-      default: "#7d7e85",
-      black: "#09101d",
-      darker: "#2f313d", // Neutral 1
-      dark: "#606167", // Neutral 2 e 3
-      light: "#98999b", // Neutral 4
+      black: "var(--black, #09101d)",
+      darker: "var(--dark, #2f313d)", // Neutral 1
+      dark: "var(--gray-600, #606167)", // Neutral 2 e 3
+      default: "var(--gray-500, #7d7e85)",
+      light: "var(--gray-400, #98999b)", // Neutral 4
     },
-    background: "#ffffff",
-    foreground: "#f9f9f9",
+    background: "var(--body-bg, #ffffff)",
+    foreground: "var(--light, #f9f9f9)",
   },
   font: {
-    family: '"Barlow", sans-serif',
+    family: "var(--font-family-sans-serif, '\"Barlow\", sans-serif')",
   },
 };
