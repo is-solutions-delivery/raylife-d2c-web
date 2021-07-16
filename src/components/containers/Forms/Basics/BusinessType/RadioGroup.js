@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useFormContext, useWatch, Controller } from "react-hook-form";
 
 import { Radio } from "../../../../fragments/Forms/Radio";
-import { BadgeButton } from "../../../../fragments/Button";
 import { LiferayService } from "../../../../../services/liferay";
 
 export const BusinessTypeRadioGroup = ({ businessTypes = [] }) => {
@@ -43,14 +42,14 @@ export const BusinessTypeRadioGroup = ({ businessTypes = [] }) => {
               label={businessType.title}
               description={businessType.description}
               selected={businessType.id === form?.basics?.businessCategoryId}
-              renderActions={<BadgeButton>More Info</BadgeButton>}
+              renderActions={<button className="btn badge">More Info</button>}
             />
           ))
         }
       />
-      <BadgeButton style={{ width: "fit-content" }}>
+      <button className="btn badge" style={{ width: "fit-content" }}>
         None of these describe my business
-      </BadgeButton>
+      </button>
     </fieldset>
   );
 };

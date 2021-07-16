@@ -7,12 +7,6 @@ import { useStepWizard } from "../../../hooks/useStepWizard";
 import { InputWithMask } from "../../fragments/Forms/Input/WithMask";
 import { Card, CardActions, CardContent } from "../../fragments/Card";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
-import {
-  BadgeButton,
-  FlatButton,
-  OutlineButton,
-  SecondarySolidButton,
-} from "../../fragments/Button";
 
 const setFormPath = (value) => `employees.${value}`;
 
@@ -53,7 +47,7 @@ export const FormEmployees = () => {
             render={({ field }) => (
               <InputWithMask
                 {...field}
-                renderActions={<BadgeButton>More Info</BadgeButton>}
+                renderActions={<button className="btn badge">More Info</button>}
                 label="Federal Employer Identification Number (FEIN)"
                 format="##-#######"
                 mask="_"
@@ -87,7 +81,7 @@ export const FormEmployees = () => {
         <Input
           name="partTimeEmployees"
           label="How many full or part time employees do you have?"
-          renderActions={<BadgeButton>More Info</BadgeButton>}
+          renderActions={<button className="btn badge">More Info</button>}
           type="number"
           min={0}
           {...register(setFormPath("partTimeEmployees"), {
@@ -145,16 +139,19 @@ export const FormEmployees = () => {
         />
       </CardContent>
       <CardActions>
-        <FlatButton onClick={goToPreviousForm}>Previous</FlatButton>
+        <button className="btn btn-flat" onClick={goToPreviousForm}>
+          Previous
+        </button>
         <div>
-          <OutlineButton>Save & Exit</OutlineButton>
-          <SecondarySolidButton
+          <button className="btn btn-outline">Save & Exit</button>
+          <button
+            className="btn btn-secondary"
             type="submit"
             onClick={goToNextForm}
             disabled={!isValid}
           >
             Continue
-          </SecondarySolidButton>
+          </button>
         </div>
       </CardActions>
     </Card>

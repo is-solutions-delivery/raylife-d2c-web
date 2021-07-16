@@ -7,11 +7,6 @@ import { AVAILABLE_STEPS } from "../../../../../utils/constants";
 import { useStepWizard } from "../../../../../hooks/useStepWizard";
 import { InputWithMask } from "../../../../fragments/Forms/Input/WithMask";
 import { Card, CardActions, CardContent } from "../../../../fragments/Card";
-import {
-  FlatButton,
-  OutlineButton,
-  SecondarySolidButton,
-} from "../../../../fragments/Button";
 import { LiferayService } from "../../../../../services/liferay";
 
 const setFormPath = (value) => `basics.businessInformation.${value}`;
@@ -86,18 +81,19 @@ export const FormBasicBusinessInformation = () => {
         <BusinessInformationAddress />
       </CardContent>
       <CardActions>
-        <FlatButton onClick={goToPreviousForm}>Previous</FlatButton>
+        <button className="btn btn-flat" onClick={goToPreviousForm}>
+          Previous
+        </button>
         <div>
-          <OutlineButton onClick={onSave}>
-            Save & Exit
-          </OutlineButton>
-          <SecondarySolidButton
+          <button className="btn btn-outline">Save & Exit</button>
+          <button
+            className="btn btn-secondary"
             type="submit"
             onClick={goToNextForm}
             disabled={!isValid}
           >
             Continue
-          </SecondarySolidButton>
+          </button>
         </div>
       </CardActions>
     </Card>

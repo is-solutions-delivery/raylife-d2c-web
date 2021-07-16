@@ -4,7 +4,6 @@ import { useFormContext, useWatch } from "react-hook-form";
 import useDebounce from "lodash.debounce";
 
 import { Input } from "../../../../fragments/Forms/Input";
-import { PrimarySolidButton } from "../../../../fragments/Button";
 
 export const BusinessTypeSearch = ({ searchBusinessType = () => {} }) => {
   const form = useWatch();
@@ -29,12 +28,13 @@ export const BusinessTypeSearch = ({ searchBusinessType = () => {} }) => {
         defaultValue=""
         {...register("basics.businessSearch")}
       />
-      <PrimarySolidButton
+      <button
+        className="btn btn-primary"
         onClick={() => onSearch(form?.basics?.businessSearch)}
         style={{ height: "3rem" }}
       >
         Search
-      </PrimarySolidButton>
+      </button>
     </div>
   );
 };

@@ -5,11 +5,6 @@ import { Radio } from "../../../fragments/Forms/Radio";
 import { AVAILABLE_STEPS } from "../../../../utils/constants";
 import { useStepWizard } from "../../../../hooks/useStepWizard";
 import { InputLabel } from "../../../fragments/Forms/Input/styles";
-import {
-  BadgeButton,
-  FlatButton,
-  SecondarySolidButton,
-} from "../../../fragments/Button";
 import { useProductQuotes } from "../../../../hooks/useProductQuotes";
 import { Card, CardActions, CardContent } from "../../../fragments/Card";
 
@@ -48,7 +43,9 @@ export const FormBasicProductQuote = () => {
                     description={quote.description}
                     value={quote.id}
                     selected={quote.id === form.basics.productQuote}
-                    renderActions={<BadgeButton>More Info</BadgeButton>}
+                    renderActions={
+                      <button className="btn badge">More Info</button>
+                    }
                   />
                 ))
               }
@@ -57,14 +54,17 @@ export const FormBasicProductQuote = () => {
         </div>
       </CardContent>
       <CardActions style={{ justifyContent: "center" }}>
-        <FlatButton onClick={goToPreviousForm}>Previous</FlatButton>
-        <SecondarySolidButton
-          type="submit"
+        <button className="btn btn-flat" onClick={goToPreviousForm}>
+          Previous
+        </button>
+        <button
+          className="btn btn-secondary"
           onClick={goToNextForm}
+          type="submit"
           disabled={!isValid}
         >
           Continue
-        </SecondarySolidButton>
+        </button>
       </CardActions>
     </Card>
   );
