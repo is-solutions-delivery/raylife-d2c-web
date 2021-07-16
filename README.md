@@ -77,3 +77,85 @@ Inside the `build/liferay` folder will contain the files that should be imported
 <URL>/liferay/js/main.min.js
 <URL>/liferay/js/runtime-main.min.js
 ```
+
+## How to work with sass
+
+### Adding styles
+
+All the configuration to use sass with web components is already in place. To add additional styles **is important** to make sure to register all the `.scss` files in the `src/styles/provider.scss`.
+
+```scss
+@import "path/to/scss/file";
+```
+
+### Steps to reproduce the sass configuration
+
+The implementation is based on [this article](https://dev.to/m4thieulavoie/how-i-managed-to-use-scss-inside-web-components-3lk9), to reproduce this work in a Create React App project do the following steps:
+
+1. Eject your CRA project
+
+```bash
+npm run eject
+# or
+yarn eject
+```
+
+2. Edit the `config/webpack.config.js` file
+
+```jsonc
+module: {
+  rules: [
+    // ...other rules
+    {
+      test: sassRegex,
+      exclude: /node_modules/,
+      use: [
+        "sass-to-string",
+        {
+          loader: "sass-loader",
+          options: {
+            sassOptions: {
+              outputStyle: "compressed",
+            },
+          },
+        },
+      ],
+    },
+    // ...
+  ]
+}
+```
+
+3. Add the entry to the web component
+
+```js
+import StylesProvider from "./styles/provider.scss";
+
+class WebComponent extends HTMLElement {
+  constructor() {
+    super();
+    this.styleSass = document.createElement("style");
+    this.styleComponentsHost = document.createElement("div");
+
+    this.attachShadow({ mode: "open" });
+  }
+
+  connectedCallback() {
+    this.styleSass.textContent = StylesProvider;
+
+    this.shadowRoot.appendChild(this.styleComponentsHost);
+    this.shadowRoot.appendChild(this.mountPoint);
+
+    ReactDOM.render(
+      <Providers>
+        <App />
+      </Providers>,
+      this.mountPoint
+    );
+  }
+}
+
+if (!customElements.get(TAG_NAME)) {
+  customElements.define(TAG_NAME, WebComponent);
+}
+```
