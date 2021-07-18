@@ -4,23 +4,32 @@ import { StyleSheetManager } from "styled-components";
 
 import { App } from "./App";
 import { Providers } from "./Providers";
+import StylesProvider from "./styles/provider.scss";
 
 const TAG_NAME = "d2c-web";
 
 class WebComponent extends HTMLElement {
   constructor() {
     super();
-    this.styleHost = document.createElement("div");
+    this.styleComponentsHost = document.createElement("div");
+    this.styleSass = document.createElement("style");
     this.mountPoint = document.createElement("div");
+
     this.attachShadow({ mode: "open" });
   }
 
   connectedCallback() {
-    this.shadowRoot.appendChild(this.styleHost);
+    this.styleSass.textContent = StylesProvider;
+
+    this.shadowRoot.appendChild(this.styleComponentsHost);
+    this.shadowRoot.appendChild(this.styleSass);
     this.shadowRoot.appendChild(this.mountPoint);
 
     ReactDOM.render(
-      <StyleSheetManager target={this.styleHost} disableCSSOMInjection>
+      <StyleSheetManager
+        target={this.styleComponentsHost}
+        disableCSSOMInjection
+      >
         <Providers>
           <App />
         </Providers>
