@@ -7,12 +7,6 @@ import { AVAILABLE_STEPS } from "../../../utils/constants";
 import { useStepWizard } from "../../../hooks/useStepWizard";
 import { InputWithMask } from "../../fragments/Forms/Input/WithMask";
 import { Card, CardActions, CardContent } from "../../fragments/Card";
-import {
-  BadgeButton,
-  FlatButton,
-  OutlineButton,
-  SecondarySolidButton,
-} from "../../fragments/Button";
 
 const setFormPath = (value) => `business.${value}`;
 
@@ -35,7 +29,7 @@ export const FormBusiness = () => {
         <Input
           name="yearsOfExperience"
           label="Years of industry experience?"
-          renderActions={<BadgeButton>More Info</BadgeButton>}
+          renderActions={<button className="btn badge">More Info</button>}
           type="number"
           min={0}
           {...register(setFormPath("yearsOfExperience"), {
@@ -71,7 +65,7 @@ export const FormBusiness = () => {
           render={({ field }) => (
             <InputWithMask
               {...field}
-              renderActions={<BadgeButton>More Info</BadgeButton>}
+              renderActions={<button className="btn badge">More Info</button>}
               label="Percent of sales from used merchandise?"
               suffix="%"
               mask="_"
@@ -94,16 +88,19 @@ export const FormBusiness = () => {
         />
       </CardContent>
       <CardActions>
-        <FlatButton onClick={goToPreviousForm}>Previous</FlatButton>
+        <button className="btn btn-flat" onClick={goToPreviousForm}>
+          Previous
+        </button>
         <div>
-          <OutlineButton>Save & Exit</OutlineButton>
-          <SecondarySolidButton
+          <button className="btn btn-outline">Save & Exit</button>
+          <button
+            className="btn btn-secondary"
             type="submit"
             onClick={goToNextForm}
             disabled={!isValid}
           >
             Continue
-          </SecondarySolidButton>
+          </button>
         </div>
       </CardActions>
     </Card>

@@ -1,7 +1,5 @@
 import React from "react";
 
-import { RadioAreaStyled, RadioInput } from "./styles";
-
 export const Radio = React.forwardRef(
   (
     {
@@ -17,8 +15,8 @@ export const Radio = React.forwardRef(
     ref
   ) => {
     return (
-      <RadioAreaStyled
-        className={selected && "selected"}
+      <div
+        className={`radio-card ${selected && "selected"}`}
         onClick={() =>
           props.onChange({
             target: {
@@ -27,12 +25,13 @@ export const Radio = React.forwardRef(
           })
         }
       >
-        <RadioInput
+        <input
           {...props}
-          type="radio"
           name={name}
           checked={selected}
           value={value}
+          type="radio"
+          className="radio"
         />
         <div className="content">
           <div className="content-header">
@@ -44,7 +43,7 @@ export const Radio = React.forwardRef(
           </div>
           <p>{description}</p>
         </div>
-      </RadioAreaStyled>
+      </div>
     );
   }
 );

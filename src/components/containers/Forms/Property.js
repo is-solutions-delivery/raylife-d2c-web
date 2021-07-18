@@ -7,12 +7,6 @@ import { AVAILABLE_STEPS } from "../../../utils/constants";
 import { useStepWizard } from "../../../hooks/useStepWizard";
 import { InputWithMask } from "../../fragments/Forms/Input/WithMask";
 import { Card, CardActions, CardContent } from "../../fragments/Card";
-import {
-  BadgeButton,
-  FlatButton,
-  OutlineButton,
-  SecondarySolidButton,
-} from "../../fragments/Button";
 
 const setFormPath = (value) => `property.${value}`;
 
@@ -59,7 +53,7 @@ export const FormProperty = () => {
           render={({ field }) => (
             <InputWithMask
               {...field}
-              renderActions={<BadgeButton>More Info</BadgeButton>}
+              renderActions={<button className="btn badge">More Info</button>}
               label="How many square feet of the building does your business occupy?"
               suffix=" ft²"
               thousandSeparator
@@ -88,7 +82,7 @@ export const FormProperty = () => {
           render={({ field }) => (
             <InputWithMask
               {...field}
-              renderActions={<BadgeButton>More Info</BadgeButton>}
+              renderActions={<button className="btn badge">More Info</button>}
               label="What year was the building constructed?"
               format="####"
               mask="_"
@@ -103,19 +97,25 @@ export const FormProperty = () => {
           render={({ field }) => (
             <Switch
               {...field}
-              renderActions={<BadgeButton>More Info</BadgeButton>}
+              renderActions={<button className="btn badge">More Info</button>}
               label="Is this the primary location you conduct business?"
             />
           )}
         />
       </CardContent>
       <CardActions>
-        <FlatButton onClick={goToPreviousForm}>Previous</FlatButton>
+        <button className="btn btn-flat" onClick={goToPreviousForm}>
+          Previous
+        </button>
         <div>
-          <OutlineButton>Save & Exit</OutlineButton>
-          <SecondarySolidButton type="submit" disabled={!isValid}>
-            Get a quote
-          </SecondarySolidButton>
+          <button className="btn btn-outline">Save & Exit</button>
+          <button
+            className="btn btn-secondary"
+            type="submit"
+            disabled={!isValid}
+          >
+            Continue
+          </button>
         </div>
       </CardActions>
     </Card>

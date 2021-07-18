@@ -3,7 +3,6 @@ import { useFormContext } from "react-hook-form";
 
 import { BusinessTypeRadioGroup } from "./RadioGroup";
 import { useStepWizard } from "../../../../../hooks/useStepWizard";
-import { FlatButton, SecondarySolidButton } from "../../../../fragments/Button";
 import { TypographyParagraph } from "../../../../fragments/Typography";
 import { useBusinessTypes } from "../../../../../hooks/useBusinessTypes";
 import { Card, CardActions, CardContent } from "../../../../fragments/Card";
@@ -33,14 +32,15 @@ export const FormBasicBusinessType = () => {
         <BusinessTypeRadioGroup businessTypes={businessTypes} />
       </CardContent>
       <CardActions>
-        <FlatButton>Previous</FlatButton>
-        <SecondarySolidButton
-          type="submit"
+        <button className="btn btn-flat">Previous</button>
+        <button
+          className="btn btn-secondary"
           onClick={goToNextForm}
+          type="submit"
           disabled={!isValid}
         >
           Continue
-        </SecondarySolidButton>
+        </button>
       </CardActions>
     </Card>
   );

@@ -1,7 +1,6 @@
 import React from "react";
 
-import { InputArea, InputLabel } from "../Input/styles";
-import { HiddenInput, Switch as SwitchStyled, SwitchArea } from "./styles";
+import { InputArea, InputLabel } from "./Input/styles";
 
 export const Switch = React.forwardRef(
   (
@@ -23,28 +22,29 @@ export const Switch = React.forwardRef(
             {renderActions}
           </InputLabel>
         )}
-        <SwitchArea>
-          <SwitchStyled
+        <div className="switch-wrapper">
+          <button
+            className={`btn switch ${value === "true" && "selected"}`}
             type="button"
             onClick={() => onChange("true")}
-            selected={value === "true"}
           >
             Yes
-          </SwitchStyled>
-          <SwitchStyled
+          </button>
+          <button
+            className={`btn switch ${value === "false" && "selected"}`}
             type="button"
             onClick={() => onChange("false")}
-            selected={value === "false"}
           >
             No
-          </SwitchStyled>
-        </SwitchArea>
-        <HiddenInput
+          </button>
+        </div>
+        <input
           {...props}
           ref={ref}
           name={name}
           value={value}
           onChange={onChange}
+          className="hidden"
         />
       </InputArea>
     );
