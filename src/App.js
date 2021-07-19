@@ -1,8 +1,8 @@
 import React from "react";
+import { useFormContext, useWatch } from "react-hook-form";
 
 import { Steps } from "./components/containers/Steps";
 import { Forms } from "./components/containers/Forms";
-import { useFormContext, useWatch } from "react-hook-form";
 import { useStepWizard } from "./hooks/useStepWizard";
 import { AVAILABLE_STEPS } from "./utils/constants";
 
