@@ -6,7 +6,6 @@ import { Switch } from "../../fragments/Forms/Switch";
 import { AVAILABLE_STEPS } from "../../../utils/constants";
 import { useStepWizard } from "../../../hooks/useStepWizard";
 import { InputWithMask } from "../../fragments/Forms/Input/WithMask";
-import { Card, CardActions, CardContent } from "../../fragments/Card";
 
 const setFormPath = (value) => `property.${value}`;
 
@@ -22,8 +21,8 @@ export const FormProperty = () => {
   const goToPreviousForm = () => setSection(AVAILABLE_STEPS.EMPLOYEES);
 
   return (
-    <Card>
-      <CardContent>
+    <div className="card">
+      <div className="card-content">
         <Controller
           name={setFormPath("doOwnBuildingAtAddress")}
           defaultValue="false"
@@ -102,8 +101,8 @@ export const FormProperty = () => {
             />
           )}
         />
-      </CardContent>
-      <CardActions>
+      </div>
+      <div className="card-actions">
         <button className="btn btn-flat" onClick={goToPreviousForm}>
           Previous
         </button>
@@ -117,7 +116,7 @@ export const FormProperty = () => {
             Continue
           </button>
         </div>
-      </CardActions>
-    </Card>
+      </div>
+    </div>
   );
 };
