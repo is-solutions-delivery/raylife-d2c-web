@@ -3,7 +3,6 @@ import { useFormContext } from "react-hook-form";
 
 import { BusinessTypeRadioGroup } from "./RadioGroup";
 import { useStepWizard } from "../../../../../hooks/useStepWizard";
-import { TypographyParagraph } from "../../../../fragments/Typography";
 import { useBusinessTypes } from "../../../../../hooks/useBusinessTypes";
 import { AVAILABLE_STEPS } from "../../../../../utils/constants";
 import { BusinessTypeSearch } from "./Search";
@@ -24,9 +23,9 @@ export const FormBasicBusinessType = () => {
       <div className="card-content">
         <div className="content-column">
           <BusinessTypeSearch searchBusinessType={reload} />
-          <TypographyParagraph>
+          <p className="paragraph">
             i.e. Coffee shop, Plumber, Drop Shipping, Landscape, etc
-          </TypographyParagraph>
+          </p>
         </div>
         <BusinessTypeRadioGroup businessTypes={businessTypes} />
       </div>

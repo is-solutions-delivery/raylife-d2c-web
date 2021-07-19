@@ -1,6 +1,5 @@
 import React from "react";
 
-import { TypographyTitle } from "./components/fragments/Typography";
 import { Steps } from "./components/containers/Steps";
 import { Forms } from "./components/containers/Forms";
 import { useFormContext, useWatch } from "react-hook-form";
@@ -30,7 +29,7 @@ export const App = () => {
 
   return (
     <>
-      <TypographyTitle className="title-area">{_renderTitle()}</TypographyTitle>
+      <h2 className="title title-area">{_renderTitle()}</h2>
       <div className="form-area">
         <Steps />
         <form onSubmit={handleSubmit(onSubmit)}>
