@@ -1,7 +1,5 @@
 import React from "react";
 
-import { InputArea, InputLabel } from "./Input/styles";
-
 export const Switch = React.forwardRef(
   (
     {
@@ -15,12 +13,12 @@ export const Switch = React.forwardRef(
     ref
   ) => {
     return (
-      <InputArea>
+      <div className="input-area">
         {label && (
-          <InputLabel htmlFor={name}>
+          <label htmlFor={name}>
             {label}
             {renderActions}
-          </InputLabel>
+          </label>
         )}
         <div className="switch-wrapper">
           <button
@@ -46,7 +44,7 @@ export const Switch = React.forwardRef(
           onChange={onChange}
           className="hidden"
         />
-      </InputArea>
+      </div>
     );
   }
 );

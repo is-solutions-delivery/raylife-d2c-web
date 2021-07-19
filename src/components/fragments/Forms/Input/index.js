@@ -1,19 +1,17 @@
 import React from "react";
 
-import { Input as InputStyled, InputArea, InputLabel } from "./styles";
-
 export const Input = React.forwardRef(
   ({ name, label, renderActions, ...props }, ref) => {
     return (
-      <InputArea>
+      <div className="input-area">
         {label && (
-          <InputLabel htmlFor={name}>
+          <label htmlFor={name}>
             {label}
             {renderActions}
-          </InputLabel>
+          </label>
         )}
-        <InputStyled {...props} ref={ref} name={name} />
-      </InputArea>
+        <input {...props} ref={ref} name={name} />
+      </div>
     );
   }
 );

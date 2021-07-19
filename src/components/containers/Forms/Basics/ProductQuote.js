@@ -4,7 +4,6 @@ import { useFormContext, useWatch, Controller } from "react-hook-form";
 import { Radio } from "../../../fragments/Forms/Radio";
 import { AVAILABLE_STEPS } from "../../../../utils/constants";
 import { useStepWizard } from "../../../../hooks/useStepWizard";
-import { InputLabel } from "../../../fragments/Forms/Input/styles";
 import { useProductQuotes } from "../../../../hooks/useProductQuotes";
 
 export const FormBasicProductQuote = () => {
@@ -25,7 +24,7 @@ export const FormBasicProductQuote = () => {
     <div className="card">
       <div className="card-content">
         <div className="content-column">
-          <InputLabel>Select a product to quote.</InputLabel>
+          <label>Select a product to quote.</label>
           <fieldset id="productQuote" className="content-column">
             <Controller
               name="basics.productQuote"
