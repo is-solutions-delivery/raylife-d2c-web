@@ -4,7 +4,6 @@ import { ThemeProvider } from "styled-components";
 import { Template } from "./components/template";
 
 import { AppProvider } from "./context/AppContext";
-import { GlobalStyle } from "./styles/global";
 import { Theme } from "./styles/theme";
 
 export const Providers = ({ children }) => {
@@ -14,7 +13,6 @@ export const Providers = ({ children }) => {
     <AppProvider>
       <FormProvider {...form}>
         <ThemeProvider theme={Theme}>
-          <GlobalStyle />
           <Template>{children}</Template>
         </ThemeProvider>
       </FormProvider>

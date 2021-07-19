@@ -14,4 +14,11 @@ $neutral-light: var(--gray-400, #98999b);
 $background: var(--body-bg, #ffffff);
 $foreground: var(--light, #f9f9f9);
 
-$font-family: var(--font-family-sans-serif, '"Barlow", sans-serif');
+$font-family: var(
+  --font-family-sans-serif,
+  "Segoe UI",
+  Tahoma,
+  Geneva,
+  Verdana,
+  sans-serif
+);
