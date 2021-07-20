@@ -1,10 +1,9 @@
 import React from "react";
-import { ProgressRing } from "../../ProgressRing";
-import { StepItemStyled } from "./styles";
+import { ProgressRing } from "../ProgressRing";
 
 export const StepItem = ({ selected = false, percentage = 0, children }) => {
   return (
-    <StepItemStyled className={selected && "selected"}>
+    <div className={`step-item ${selected && "selected"}`}>
       <i>
         {selected && (
           <ProgressRing
@@ -16,6 +15,6 @@ export const StepItem = ({ selected = false, percentage = 0, children }) => {
         )}
       </i>
       {children}
-    </StepItemStyled>
+    </div>
   );
 };

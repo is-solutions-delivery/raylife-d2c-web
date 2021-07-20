@@ -5,7 +5,6 @@ import { Switch } from "../../fragments/Forms/Switch";
 import { AVAILABLE_STEPS } from "../../../utils/constants";
 import { useStepWizard } from "../../../hooks/useStepWizard";
 import { InputWithMask } from "../../fragments/Forms/Input/WithMask";
-import { Card, CardActions, CardContent } from "../../fragments/Card";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 
 const setFormPath = (value) => `employees.${value}`;
@@ -24,8 +23,8 @@ export const FormEmployees = () => {
   const goToNextForm = () => setSection(AVAILABLE_STEPS.PROPERTY);
 
   return (
-    <Card>
-      <CardContent>
+    <div className="card">
+      <div className="card-content">
         <Controller
           name={setFormPath("hasFein")}
           defaultValue="false"
@@ -137,8 +136,8 @@ export const FormEmployees = () => {
             />
           )}
         />
-      </CardContent>
-      <CardActions>
+      </div>
+      <div className="card-actions">
         <button className="btn btn-flat" onClick={goToPreviousForm}>
           Previous
         </button>
@@ -153,7 +152,7 @@ export const FormEmployees = () => {
             Continue
           </button>
         </div>
-      </CardActions>
-    </Card>
+      </div>
+    </div>
   );
 };

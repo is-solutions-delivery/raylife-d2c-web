@@ -4,9 +4,7 @@ import { useFormContext, useWatch, Controller } from "react-hook-form";
 import { Radio } from "../../../fragments/Forms/Radio";
 import { AVAILABLE_STEPS } from "../../../../utils/constants";
 import { useStepWizard } from "../../../../hooks/useStepWizard";
-import { InputLabel } from "../../../fragments/Forms/Input/styles";
 import { useProductQuotes } from "../../../../hooks/useProductQuotes";
-import { Card, CardActions, CardContent } from "../../../fragments/Card";
 
 export const FormBasicProductQuote = () => {
   const form = useWatch();
@@ -23,10 +21,10 @@ export const FormBasicProductQuote = () => {
     setSection(AVAILABLE_STEPS.BASICS_BUSINESS_INFORMATION);
 
   return (
-    <Card>
-      <CardContent>
+    <div className="card">
+      <div className="card-content">
         <div className="content-column">
-          <InputLabel>Select a product to quote.</InputLabel>
+          <label>Select a product to quote.</label>
           <fieldset id="productQuote" className="content-column">
             <Controller
               name="basics.productQuote"
@@ -52,8 +50,8 @@ export const FormBasicProductQuote = () => {
             />
           </fieldset>
         </div>
-      </CardContent>
-      <CardActions style={{ justifyContent: "center" }}>
+      </div>
+      <div className="card-actions" style={{ justifyContent: "center" }}>
         <button className="btn btn-flat" onClick={goToPreviousForm}>
           Previous
         </button>
@@ -65,7 +63,7 @@ export const FormBasicProductQuote = () => {
         >
           Continue
         </button>
-      </CardActions>
-    </Card>
+      </div>
+    </div>
   );
 };

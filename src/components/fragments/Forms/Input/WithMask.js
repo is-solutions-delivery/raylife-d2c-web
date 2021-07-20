@@ -1,28 +1,24 @@
 import React from "react";
-
-import {
-  InputWithMask as InputWithMaskStyled,
-  InputArea,
-  InputLabel,
-} from "./styles";
+import ReactInputMask from "react-number-format";
 
 export const InputWithMask = React.forwardRef(
   ({ name, label, renderActions, allowNegative = false, ...props }, ref) => {
     return (
-      <InputArea>
+      <div className="input-area">
         {label && (
-          <InputLabel htmlFor={name}>
+          <label htmlFor={name}>
             {label}
             {renderActions}
-          </InputLabel>
+          </label>
         )}
-        <InputWithMaskStyled
+        <ReactInputMask
           {...props}
           allowNegative={allowNegative}
           ref={ref}
           name={name}
+          className="input"
         />
-      </InputArea>
+      </div>
     );
   }
 );

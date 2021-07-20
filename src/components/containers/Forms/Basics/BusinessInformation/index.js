@@ -6,7 +6,6 @@ import { Input } from "../../../../fragments/Forms/Input";
 import { AVAILABLE_STEPS } from "../../../../../utils/constants";
 import { useStepWizard } from "../../../../../hooks/useStepWizard";
 import { InputWithMask } from "../../../../fragments/Forms/Input/WithMask";
-import { Card, CardActions, CardContent } from "../../../../fragments/Card";
 import { LiferayService } from "../../../../../services/liferay";
 
 const setFormPath = (value) => `basics.businessInformation.${value}`;
@@ -37,8 +36,8 @@ export const FormBasicBusinessInformation = () => {
   };
 
   return (
-    <Card>
-      <CardContent>
+    <div className="card">
+      <div className="card-content">
         <div className="content-row">
           <Input
             {...register(setFormPath("firstName"), {
@@ -79,8 +78,8 @@ export const FormBasicBusinessInformation = () => {
           label="Business Website (optional)"
         />
         <BusinessInformationAddress />
-      </CardContent>
-      <CardActions>
+      </div>
+      <div className="card-actions">
         <button className="btn btn-flat" onClick={goToPreviousForm}>
           Previous
         </button>
@@ -95,7 +94,7 @@ export const FormBasicBusinessInformation = () => {
             Continue
           </button>
         </div>
-      </CardActions>
-    </Card>
+      </div>
+    </div>
   );
 };

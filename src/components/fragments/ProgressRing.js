@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { calculateCircumference, calculateOffset } from "../../utils";
 
 export const ProgressRing = ({
@@ -13,13 +12,7 @@ export const ProgressRing = ({
   const normalizedRadius = radius - strokeWidth * 2;
 
   return (
-    <ProgressRingStyled
-      className={className}
-      width={diameter}
-      height={diameter}
-      radius={normalizedRadius}
-      percent={percent}
-    >
+    <svg className={className} width={diameter} height={diameter}>
       <circle
         className="progress"
         fill="transparent"
@@ -29,21 +22,16 @@ export const ProgressRing = ({
         r={normalizedRadius}
         cx={radius}
         cy={radius}
+        style={{
+          strokeDasharray: `${calculateCircumference(
+            normalizedRadius
+          )} ${calculateCircumference(normalizedRadius)}`,
+          strokeDashoffset: calculateOffset(
+            percent,
+            calculateCircumference(normalizedRadius)
+          ),
+        }}
       />
-    </ProgressRingStyled>
+    </svg>
   );
 };
-
-const ProgressRingStyled = styled.svg`
-  & > .progress {
-    stroke-dasharray: ${({ radius }) =>
-      `${calculateCircumference(radius)} ${calculateCircumference(radius)}`};
-
-    stroke-dashoffset: ${({ radius, percent }) =>
-      calculateOffset(percent, calculateCircumference(radius))};
-
-    transition: 0.35s stroke-dashoffset;
-    transform: rotate(-90deg);
-    transform-origin: 50% 50%;
-  }
-`;

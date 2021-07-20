@@ -1,6 +1,4 @@
-import styled from "styled-components";
-
-export const Template = styled.div`
+.template {
   display: flex;
   flex-direction: column;
   flex: 1 1;
@@ -16,4 +14,4 @@ export const Template = styled.div`
     grid-template-columns: 200px minmax(auto, 700px) auto;
     gap: 2rem;
   }
-`;
+}

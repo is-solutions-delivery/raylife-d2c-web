@@ -1,7 +1,5 @@
-import styled from "styled-components";
+import React from "react";
 
-export const StepList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-`;
+export const StepList = ({ children }) => {
+  return <div className="step-list">{children}</div>;
+};
