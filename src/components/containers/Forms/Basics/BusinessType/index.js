@@ -30,7 +30,9 @@ export const FormBasicBusinessType = () => {
         <BusinessTypeRadioGroup businessTypes={businessTypes} />
       </div>
       <div className="card-actions">
-        <button className="btn btn-flat">Previous</button>
+        <button type="button" className="btn btn-flat">
+          Previous
+        </button>
         <button
           className="btn btn-secondary"
           onClick={goToNextForm}

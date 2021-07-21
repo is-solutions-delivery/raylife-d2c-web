@@ -103,11 +103,17 @@ export const FormProperty = () => {
         />
       </div>
       <div className="card-actions">
-        <button className="btn btn-flat" onClick={goToPreviousForm}>
+        <button
+          type="button"
+          className="btn btn-flat"
+          onClick={goToPreviousForm}
+        >
           Previous
         </button>
         <div>
-          <button className="btn btn-outline">Save & Exit</button>
+          <button type="button" className="btn btn-outline">
+            Save & Exit
+          </button>
           <button
             className="btn btn-secondary"
             type="submit"

@@ -69,4 +69,8 @@
 
   background: $primary-light;
   color: $primary-default;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }

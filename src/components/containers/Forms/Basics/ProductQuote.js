@@ -52,7 +52,11 @@ export const FormBasicProductQuote = () => {
         </div>
       </div>
       <div className="card-actions" style={{ justifyContent: "center" }}>
-        <button className="btn btn-flat" onClick={goToPreviousForm}>
+        <button
+          type="button"
+          className="btn btn-flat"
+          onClick={goToPreviousForm}
+        >
           Previous
         </button>
         <button
