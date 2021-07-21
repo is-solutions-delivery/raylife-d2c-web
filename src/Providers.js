@@ -5,7 +5,7 @@ import { AppProvider } from "./context/AppContext";
 import { Template } from "./components/Template";
 
 export const Providers = ({ children }) => {
-  const form = useForm();
+  const form = useForm({ mode: "onChange" });
 
   return (
     <AppProvider>
