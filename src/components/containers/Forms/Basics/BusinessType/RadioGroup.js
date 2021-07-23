@@ -3,10 +3,14 @@ import { useFormContext, useWatch, Controller } from "react-hook-form";
 
 import { Radio } from "../../../../fragments/Forms/Radio";
 import { LiferayService } from "../../../../../services/liferay";
+import { useLiferayState } from "../../../../../hooks/useLiferayState";
+
+const BUSINESS_TYPE_ATOM = "business-type-id";
 
 export const BusinessTypeRadioGroup = ({ businessTypes = [] }) => {
-  const { control, setValue } = useFormContext();
   const form = useWatch();
+  const { writeAtom } = useLiferayState();
+  const { control, setValue } = useFormContext();
 
   useEffect(() => {
     if (form?.basics?.businessCategoryId) setBusinessClassCode();
@@ -42,12 +46,24 @@ export const BusinessTypeRadioGroup = ({ businessTypes = [] }) => {
               label={businessType.title}
               description={businessType.description}
               selected={businessType.id === form?.basics?.businessCategoryId}
-              renderActions={<button className="btn badge">More Info</button>}
+              renderActions={
+                <button
+                  type="button"
+                  className="btn badge"
+                  onClick={() => writeAtom(BUSINESS_TYPE_ATOM, businessType.id)}
+                >
+                  More Info
+                </button>
+              }
             />
           ))
         }
       />
-      <button className="btn badge" style={{ width: "fit-content" }}>
+      <button
+        type="button"
+        className="btn badge"
+        style={{ width: "fit-content" }}
+      >
         None of these describe my business
       </button>
     </fieldset>

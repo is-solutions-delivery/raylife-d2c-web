@@ -6,6 +6,9 @@ import { Switch } from "../../fragments/Forms/Switch";
 import { AVAILABLE_STEPS } from "../../../utils/constants";
 import { useStepWizard } from "../../../hooks/useStepWizard";
 import { InputWithMask } from "../../fragments/Forms/Input/WithMask";
+import { useLiferayState } from "../../../hooks/useLiferayState";
+
+const MORE_INFO_ATOM = "more-info-input-label";
 
 const setFormPath = (value) => `business.${value}`;
 
@@ -16,11 +19,16 @@ export const FormBusiness = () => {
     formState: { isValid },
   } = useFormContext();
   const { setSection } = useStepWizard();
+  const { writeAtom } = useLiferayState();
 
   const goToPreviousForm = () =>
     setSection(AVAILABLE_STEPS.BASICS_PRODUCT_QUOTE);
 
   const goToNextForm = () => setSection(AVAILABLE_STEPS.EMPLOYEES);
+
+  const handleMoreInfo = (label) => {
+    writeAtom(MORE_INFO_ATOM, label);
+  };
 
   return (
     <div className="card">
@@ -28,7 +36,15 @@ export const FormBusiness = () => {
         <Input
           name="yearsOfExperience"
           label="Years of industry experience?"
-          renderActions={<button className="btn badge">More Info</button>}
+          renderActions={
+            <button
+              type="button"
+              onClick={() => handleMoreInfo("yearsOfExperience")}
+              className="btn badge"
+            >
+              More Info
+            </button>
+          }
           type="number"
           min={0}
           {...register(setFormPath("yearsOfExperience"), {
@@ -64,7 +80,15 @@ export const FormBusiness = () => {
           render={({ field }) => (
             <InputWithMask
               {...field}
-              renderActions={<button className="btn badge">More Info</button>}
+              renderActions={
+                <button
+                  type="button"
+                  onClick={() => handleMoreInfo("salesMerchandise")}
+                  className="btn badge"
+                >
+                  More Info
+                </button>
+              }
               label="Percent of sales from used merchandise?"
               suffix="%"
               mask="_"

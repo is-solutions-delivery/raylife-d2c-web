@@ -5,9 +5,13 @@ import { Radio } from "../../../fragments/Forms/Radio";
 import { AVAILABLE_STEPS } from "../../../../utils/constants";
 import { useStepWizard } from "../../../../hooks/useStepWizard";
 import { useProductQuotes } from "../../../../hooks/useProductQuotes";
+import { useLiferayState } from "../../../../hooks/useLiferayState";
+
+const QUOTE_ATOM = "product-quote-id";
 
 export const FormBasicProductQuote = () => {
   const form = useWatch();
+  const { writeAtom } = useLiferayState();
   const { setSection } = useStepWizard();
   const { productQuotes } = useProductQuotes();
   const {
@@ -42,7 +46,13 @@ export const FormBasicProductQuote = () => {
                     value={quote.id}
                     selected={quote.id === form.basics.productQuote}
                     renderActions={
-                      <button className="btn badge">More Info</button>
+                      <button
+                        type="button"
+                        className="btn badge"
+                        onClick={() => writeAtom(QUOTE_ATOM, quote.id)}
+                      >
+                        More Info
+                      </button>
                     }
                   />
                 ))
@@ -60,9 +70,9 @@ export const FormBasicProductQuote = () => {
           Previous
         </button>
         <button
+          type="submit"
           className="btn btn-secondary"
           onClick={goToNextForm}
-          type="submit"
           disabled={!isValid}
         >
           Continue
