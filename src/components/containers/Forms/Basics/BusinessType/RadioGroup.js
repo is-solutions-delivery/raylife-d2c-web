@@ -1,16 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { useFormContext, useWatch, Controller } from "react-hook-form";
 
 import { Radio } from "../../../../fragments/Forms/Radio";
 import { LiferayService } from "../../../../../services/liferay";
 import { useLiferayState } from "../../../../../hooks/useLiferayState";
-
-const BUSINESS_TYPE_ATOM = "business-type-id";
+import { businessTypeAtom } from "../../../../../atoms";
 
 export const BusinessTypeRadioGroup = ({ businessTypes = [] }) => {
   const form = useWatch();
-  const { writeAtom } = useLiferayState();
   const { control, setValue } = useFormContext();
+  // eslint-disable-next-line no-unused-vars
+  const [businessTypeState, setBusinessTypeState] =
+    useLiferayState(businessTypeAtom);
 
   useEffect(() => {
     if (form?.basics?.businessCategoryId) setBusinessClassCode();
@@ -50,7 +52,9 @@ export const BusinessTypeRadioGroup = ({ businessTypes = [] }) => {
                 <button
                   type="button"
                   className="btn badge"
-                  onClick={() => writeAtom(BUSINESS_TYPE_ATOM, businessType.id)}
+                  onClick={() =>
+                    setBusinessTypeState({ data: businessType.id })
+                  }
                 >
                   More Info
                 </button>

@@ -7,8 +7,7 @@ import { AVAILABLE_STEPS } from "../../../utils/constants";
 import { useStepWizard } from "../../../hooks/useStepWizard";
 import { InputWithMask } from "../../fragments/Forms/Input/WithMask";
 import { useLiferayState } from "../../../hooks/useLiferayState";
-
-const MORE_INFO_ATOM = "more-info-input-label";
+import { inputAtom } from "../../../atoms";
 
 const setFormPath = (value) => `business.${value}`;
 
@@ -19,7 +18,8 @@ export const FormBusiness = () => {
     formState: { isValid },
   } = useFormContext();
   const { setSection } = useStepWizard();
-  const { writeAtom } = useLiferayState();
+  // eslint-disable-next-line no-unused-vars
+  const [moreInfoState, setMoreInfoState] = useLiferayState(inputAtom);
 
   const goToPreviousForm = () =>
     setSection(AVAILABLE_STEPS.BASICS_PRODUCT_QUOTE);
@@ -27,7 +27,7 @@ export const FormBusiness = () => {
   const goToNextForm = () => setSection(AVAILABLE_STEPS.EMPLOYEES);
 
   const handleMoreInfo = (label) => {
-    writeAtom(MORE_INFO_ATOM, label);
+    setMoreInfoState({ data: label });
   };
 
   return (

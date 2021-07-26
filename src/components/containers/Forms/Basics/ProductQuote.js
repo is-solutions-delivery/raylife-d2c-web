@@ -6,18 +6,18 @@ import { AVAILABLE_STEPS } from "../../../../utils/constants";
 import { useStepWizard } from "../../../../hooks/useStepWizard";
 import { useProductQuotes } from "../../../../hooks/useProductQuotes";
 import { useLiferayState } from "../../../../hooks/useLiferayState";
-
-const QUOTE_ATOM = "product-quote-id";
+import { productQuoteAtom } from "../../../../atoms";
 
 export const FormBasicProductQuote = () => {
   const form = useWatch();
-  const { writeAtom } = useLiferayState();
-  const { setSection } = useStepWizard();
-  const { productQuotes } = useProductQuotes();
   const {
     control,
     formState: { isValid },
   } = useFormContext();
+  const { setSection } = useStepWizard();
+  const { productQuotes } = useProductQuotes();
+  // eslint-disable-next-line no-unused-vars
+  const [quoteState, setQuoteState] = useLiferayState(productQuoteAtom);
 
   const goToNextForm = () => setSection(AVAILABLE_STEPS.BUSINESS);
 
@@ -49,7 +49,7 @@ export const FormBasicProductQuote = () => {
                       <button
                         type="button"
                         className="btn badge"
-                        onClick={() => writeAtom(QUOTE_ATOM, quote.id)}
+                        onClick={() => setQuoteState({ data: quote.id })}
                       >
                         More Info
                       </button>

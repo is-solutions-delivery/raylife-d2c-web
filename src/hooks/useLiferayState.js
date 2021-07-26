@@ -1,12 +1,20 @@
-export const useLiferayState = () => {
-  const writeAtom = (atom, value) => {
-    try {
-      // eslint-disable-next-line no-undef
-      Liferay.State.writeAtom(atom, { data: value });
-    } catch (error) {
-      console.warn(error);
-    }
-  };
+import { useCallback, useEffect, useState } from "react";
 
-  return { writeAtom };
+export const useLiferayState = (atom) => {
+  const [value, setValue] = useState(() => {
+    // eslint-disable-next-line no-undef
+    return Liferay.State.read(atom);
+  });
+
+  useEffect(() => {
+    // eslint-disable-next-line no-undef
+    const { dispose } = Liferay.State.subscribe(atom, setValue);
+    return dispose;
+  }, [atom]);
+
+  return [
+    value,
+    // eslint-disable-next-line no-undef
+    useCallback((newValue) => Liferay.State.write(atom, newValue), [atom]),
+  ];
 };
