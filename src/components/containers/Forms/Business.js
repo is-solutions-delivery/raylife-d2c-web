@@ -6,6 +6,8 @@ import { Switch } from "../../fragments/Forms/Switch";
 import { AVAILABLE_STEPS } from "../../../utils/constants";
 import { useStepWizard } from "../../../hooks/useStepWizard";
 import { InputWithMask } from "../../fragments/Forms/Input/WithMask";
+import { MoreInfoButton } from "../../fragments/Buttons/MoreInfo";
+import { INPUT_INFO_EVENT } from "../../../events";
 
 const setFormPath = (value) => `business.${value}`;
 
@@ -28,7 +30,12 @@ export const FormBusiness = () => {
         <Input
           name="yearsOfExperience"
           label="Years of industry experience?"
-          renderActions={<button className="btn badge">More Info</button>}
+          renderActions={
+            <MoreInfoButton
+              event={INPUT_INFO_EVENT}
+              value="yearsOfExperience"
+            />
+          }
           type="number"
           min={0}
           {...register(setFormPath("yearsOfExperience"), {
@@ -64,7 +71,12 @@ export const FormBusiness = () => {
           render={({ field }) => (
             <InputWithMask
               {...field}
-              renderActions={<button className="btn badge">More Info</button>}
+              renderActions={
+                <MoreInfoButton
+                  event={INPUT_INFO_EVENT}
+                  value="salesMerchandise"
+                />
+              }
               label="Percent of sales from used merchandise?"
               suffix="%"
               mask="_"
@@ -99,8 +111,8 @@ export const FormBusiness = () => {
             Save & Exit
           </button>
           <button
-            className="btn btn-secondary"
             type="submit"
+            className="btn btn-secondary"
             onClick={goToNextForm}
             disabled={!isValid}
           >

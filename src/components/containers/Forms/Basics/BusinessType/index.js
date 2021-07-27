@@ -34,9 +34,9 @@ export const FormBasicBusinessType = () => {
           Previous
         </button>
         <button
+          type="submit"
           className="btn btn-secondary"
           onClick={goToNextForm}
-          type="submit"
           disabled={!isValid}
         >
           Continue

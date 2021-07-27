@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 
 import { BusinessInformationAddress } from "./Address";
@@ -18,10 +18,6 @@ export const FormBasicBusinessInformation = () => {
     control,
     formState: { isValid },
   } = useFormContext();
-
-  useEffect(() => {
-    console.log(isValid);
-  }, [isValid]);
 
   const onSave = async () => {
     try {
@@ -96,8 +92,8 @@ export const FormBasicBusinessInformation = () => {
             Save & Exit
           </button>
           <button
-            className="btn btn-secondary"
             type="submit"
+            className="btn btn-secondary"
             onClick={goToNextForm}
             disabled={!isValid}
           >

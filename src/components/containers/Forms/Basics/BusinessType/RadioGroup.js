@@ -1,8 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { useFormContext, useWatch, Controller } from "react-hook-form";
 
 import { Radio } from "../../../../fragments/Forms/Radio";
 import { LiferayService } from "../../../../../services/liferay";
+import { MoreInfoButton } from "../../../../fragments/Buttons/MoreInfo";
+import { BUSINESS_TYPE_INFO_EVENT } from "../../../../../events";
 
 export const BusinessTypeRadioGroup = ({ businessTypes = [] }) => {
   const { control, setValue } = useFormContext();
@@ -42,12 +45,21 @@ export const BusinessTypeRadioGroup = ({ businessTypes = [] }) => {
               label={businessType.title}
               description={businessType.description}
               selected={businessType.id === form?.basics?.businessCategoryId}
-              renderActions={<button className="btn badge">More Info</button>}
+              renderActions={
+                <MoreInfoButton
+                  event={BUSINESS_TYPE_INFO_EVENT}
+                  value={businessType.id}
+                />
+              }
             />
           ))
         }
       />
-      <button className="btn badge" style={{ width: "fit-content" }}>
+      <button
+        type="button"
+        className="btn badge"
+        style={{ width: "fit-content" }}
+      >
         None of these describe my business
       </button>
     </fieldset>
