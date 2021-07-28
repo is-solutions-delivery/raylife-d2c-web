@@ -6,16 +6,18 @@ import { Switch } from "../../fragments/Forms/Switch";
 import { AVAILABLE_STEPS } from "../../../utils/constants";
 import { useStepWizard } from "../../../hooks/useStepWizard";
 import { InputWithMask } from "../../fragments/Forms/Input/WithMask";
+import { MoreInfoButton } from "../../fragments/Buttons/MoreInfo";
+import { INPUT_INFO_EVENT } from "../../../events";
 
 const setFormPath = (value) => `property.${value}`;
 
 export const FormProperty = () => {
-  const form = useWatch();
   const {
     register,
     control,
     formState: { isValid },
   } = useFormContext();
+  const form = useWatch();
   const { setSection } = useStepWizard();
 
   const goToPreviousForm = () => setSection(AVAILABLE_STEPS.EMPLOYEES);
@@ -52,7 +54,12 @@ export const FormProperty = () => {
           render={({ field }) => (
             <InputWithMask
               {...field}
-              renderActions={<button className="btn badge">More Info</button>}
+              renderActions={
+                <MoreInfoButton
+                  event={INPUT_INFO_EVENT}
+                  value="buildingSquareFeetOccupied"
+                />
+              }
               label="How many square feet of the building does your business occupy?"
               suffix=" ft²"
               thousandSeparator
@@ -81,7 +88,9 @@ export const FormProperty = () => {
           render={({ field }) => (
             <InputWithMask
               {...field}
-              renderActions={<button className="btn badge">More Info</button>}
+              renderActions={
+                <MoreInfoButton event={INPUT_INFO_EVENT} value="yearBuilding" />
+              }
               label="What year was the building constructed?"
               format="####"
               mask="_"
@@ -96,7 +105,12 @@ export const FormProperty = () => {
           render={({ field }) => (
             <Switch
               {...field}
-              renderActions={<button className="btn badge">More Info</button>}
+              renderActions={
+                <MoreInfoButton
+                  event={INPUT_INFO_EVENT}
+                  value="isPrimaryBusinessLocation"
+                />
+              }
               label="Is this the primary location you conduct business?"
             />
           )}

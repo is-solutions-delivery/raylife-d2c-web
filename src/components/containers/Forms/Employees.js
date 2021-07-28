@@ -1,22 +1,24 @@
 import React from "react";
+import { Controller, useFormContext, useWatch } from "react-hook-form";
 
 import { Input } from "../../fragments/Forms/Input";
 import { Switch } from "../../fragments/Forms/Switch";
 import { AVAILABLE_STEPS } from "../../../utils/constants";
 import { useStepWizard } from "../../../hooks/useStepWizard";
 import { InputWithMask } from "../../fragments/Forms/Input/WithMask";
-import { Controller, useFormContext, useWatch } from "react-hook-form";
+import { MoreInfoButton } from "../../fragments/Buttons/MoreInfo";
+import { INPUT_INFO_EVENT } from "../../../events";
 
 const setFormPath = (value) => `employees.${value}`;
 
 export const FormEmployees = () => {
-  const form = useWatch();
-  const { setSection } = useStepWizard();
   const {
     register,
     control,
     formState: { isValid },
   } = useFormContext();
+  const form = useWatch();
+  const { setSection } = useStepWizard();
 
   const goToPreviousForm = () => setSection(AVAILABLE_STEPS.BUSINESS);
 
@@ -46,7 +48,9 @@ export const FormEmployees = () => {
             render={({ field }) => (
               <InputWithMask
                 {...field}
-                renderActions={<button className="btn badge">More Info</button>}
+                renderActions={
+                  <MoreInfoButton event={INPUT_INFO_EVENT} value="fein" />
+                }
                 label="Federal Employer Identification Number (FEIN)"
                 format="##-#######"
                 mask="_"
@@ -80,7 +84,12 @@ export const FormEmployees = () => {
         <Input
           name="partTimeEmployees"
           label="How many full or part time employees do you have?"
-          renderActions={<button className="btn badge">More Info</button>}
+          renderActions={
+            <MoreInfoButton
+              event={INPUT_INFO_EVENT}
+              value="partTimeEmployees"
+            />
+          }
           type="number"
           min={0}
           {...register(setFormPath("partTimeEmployees"), {

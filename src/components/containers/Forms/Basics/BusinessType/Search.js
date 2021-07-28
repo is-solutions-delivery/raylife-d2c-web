@@ -29,9 +29,10 @@ export const BusinessTypeSearch = ({ searchBusinessType = () => {} }) => {
         {...register("basics.businessSearch")}
       />
       <button
+        type="button"
+        style={{ height: "3rem" }}
         className="btn btn-primary"
         onClick={() => onSearch(form?.basics?.businessSearch)}
-        style={{ height: "3rem" }}
       >
         Search
       </button>

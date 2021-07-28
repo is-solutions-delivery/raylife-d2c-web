@@ -5,15 +5,17 @@ import { Radio } from "../../../fragments/Forms/Radio";
 import { AVAILABLE_STEPS } from "../../../../utils/constants";
 import { useStepWizard } from "../../../../hooks/useStepWizard";
 import { useProductQuotes } from "../../../../hooks/useProductQuotes";
+import { MoreInfoButton } from "../../../fragments/Buttons/MoreInfo";
+import { PRODUCT_QUOTE_INFO_EVENT } from "../../../../events";
 
 export const FormBasicProductQuote = () => {
-  const form = useWatch();
-  const { setSection } = useStepWizard();
-  const { productQuotes } = useProductQuotes();
   const {
     control,
     formState: { isValid },
   } = useFormContext();
+  const form = useWatch();
+  const { setSection } = useStepWizard();
+  const { productQuotes } = useProductQuotes();
 
   const goToNextForm = () => setSection(AVAILABLE_STEPS.BUSINESS);
 
@@ -42,7 +44,10 @@ export const FormBasicProductQuote = () => {
                     value={quote.id}
                     selected={quote.id === form.basics.productQuote}
                     renderActions={
-                      <button className="btn badge">More Info</button>
+                      <MoreInfoButton
+                        event={PRODUCT_QUOTE_INFO_EVENT}
+                        value={quote.id}
+                      />
                     }
                   />
                 ))
@@ -60,10 +65,10 @@ export const FormBasicProductQuote = () => {
           Previous
         </button>
         <button
-          className="btn btn-secondary"
-          onClick={goToNextForm}
           type="submit"
+          className="btn btn-secondary"
           disabled={!isValid}
+          onClick={goToNextForm}
         >
           Continue
         </button>
