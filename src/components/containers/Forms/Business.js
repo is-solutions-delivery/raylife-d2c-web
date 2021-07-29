@@ -8,6 +8,7 @@ import { useStepWizard } from "../../../hooks/useStepWizard";
 import { InputWithMask } from "../../fragments/Forms/Input/WithMask";
 import { MoreInfoButton } from "../../fragments/Buttons/MoreInfo";
 import { INPUT_INFO_EVENT } from "../../../events";
+import { CardFormActionsWithSave } from "../../fragments/Card/FormActionsWithSave";
 
 const setFormPath = (value) => `business.${value}`;
 
@@ -84,7 +85,6 @@ export const FormBusiness = () => {
             />
           )}
         />
-
         <Controller
           name={setFormPath("hasSellProductsUnderOwnBrand")}
           defaultValue="false"
@@ -98,28 +98,11 @@ export const FormBusiness = () => {
           )}
         />
       </div>
-      <div className="card-actions">
-        <button
-          type="button"
-          className="btn btn-flat"
-          onClick={goToPreviousForm}
-        >
-          Previous
-        </button>
-        <div>
-          <button type="button" className="btn btn-outline">
-            Save & Exit
-          </button>
-          <button
-            type="submit"
-            className="btn btn-secondary"
-            onClick={goToNextForm}
-            disabled={!isValid}
-          >
-            Continue
-          </button>
-        </div>
-      </div>
+      <CardFormActionsWithSave
+        onPrevious={goToPreviousForm}
+        onNext={goToNextForm}
+        isValid={isValid}
+      />
     </div>
   );
 };

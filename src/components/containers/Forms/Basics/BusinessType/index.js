@@ -6,6 +6,7 @@ import { useStepWizard } from "../../../../../hooks/useStepWizard";
 import { useBusinessTypes } from "../../../../../hooks/useBusinessTypes";
 import { AVAILABLE_STEPS } from "../../../../../utils/constants";
 import { BusinessTypeSearch } from "./Search";
+import { CardFormActions } from "../../../../fragments/Card/FormActions";
 
 export const FormBasicBusinessType = () => {
   const { setSection } = useStepWizard();
@@ -29,19 +30,7 @@ export const FormBasicBusinessType = () => {
         </div>
         <BusinessTypeRadioGroup businessTypes={businessTypes} />
       </div>
-      <div className="card-actions">
-        <button type="button" className="btn btn-flat">
-          Previous
-        </button>
-        <button
-          type="submit"
-          className="btn btn-secondary"
-          onClick={goToNextForm}
-          disabled={!isValid}
-        >
-          Continue
-        </button>
-      </div>
+      <CardFormActions onNext={goToNextForm} isValid={isValid} />
     </div>
   );
 };

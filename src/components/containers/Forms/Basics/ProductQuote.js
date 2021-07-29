@@ -7,6 +7,7 @@ import { useStepWizard } from "../../../../hooks/useStepWizard";
 import { useProductQuotes } from "../../../../hooks/useProductQuotes";
 import { MoreInfoButton } from "../../../fragments/Buttons/MoreInfo";
 import { PRODUCT_QUOTE_INFO_EVENT } from "../../../../events";
+import { CardFormActions } from "../../../fragments/Card/FormActions";
 
 export const FormBasicProductQuote = () => {
   const {
@@ -56,23 +57,11 @@ export const FormBasicProductQuote = () => {
           </fieldset>
         </div>
       </div>
-      <div className="card-actions" style={{ justifyContent: "center" }}>
-        <button
-          type="button"
-          className="btn btn-flat"
-          onClick={goToPreviousForm}
-        >
-          Previous
-        </button>
-        <button
-          type="submit"
-          className="btn btn-secondary"
-          disabled={!isValid}
-          onClick={goToNextForm}
-        >
-          Continue
-        </button>
-      </div>
+      <CardFormActions
+        onPrevious={goToPreviousForm}
+        onNext={goToNextForm}
+        isValid={isValid}
+      />
     </div>
   );
 };

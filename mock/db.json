@@ -503,5 +503,113 @@
       "website": "string",
       "zip": "string"
     }
-  ]
+  ],
+  "products": {
+    "actions": {},
+    "facets": [],
+    "items": [
+      {
+        "actions": {
+          "get": {
+            "method": "GET",
+            "href": "http://192.168.1.92:8080/o/headless-commerce-admin-catalog/v1.0/products/41450"
+          },
+          "update": {
+            "method": "PATCH",
+            "href": "http://192.168.1.92:8080/o/headless-commerce-admin-catalog/v1.0/products/41450"
+          },
+          "delete": {
+            "method": "DELETE",
+            "href": "http://192.168.1.92:8080/o/headless-commerce-admin-catalog/v1.0/products/41450"
+          }
+        },
+        "active": true,
+        "catalog": {
+          "actions": {
+            "get": {},
+            "update": {},
+            "delete": {}
+          },
+          "currencyCode": "USD",
+          "defaultLanguageId": "en_US",
+          "externalReferenceCode": "",
+          "id": 41422,
+          "name": "Raylife",
+          "system": false
+        },
+        "catalogId": 41422,
+        "createDate": "2021-07-14T16:04:36Z",
+        "customFields": [],
+        "description": {
+          "en_US": ""
+        },
+        "displayDate": "2021-07-14T16:04:00Z",
+        "expando": {},
+        "externalReferenceCode": "",
+        "id": 41450,
+        "metaDescription": {
+          "en_US": ""
+        },
+        "metaKeyword": {
+          "en_US": ""
+        },
+        "metaTitle": {
+          "en_US": ""
+        },
+        "modifiedDate": "2021-07-14T16:06:17Z",
+        "name": {
+          "en_US": "Pet Store Insurance"
+        },
+        "productAccountGroupFilter": false,
+        "productChannelFilter": false,
+        "productId": 41451,
+        "productStatus": 0,
+        "productType": "virtual",
+        "productTypeI18n": "Virtual",
+        "shortDescription": {
+          "en_US": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        },
+        "skuFormatted": "RAY001",
+        "skus": [
+          {
+            "cost": 0,
+            "depth": 0,
+            "displayDate": "2021-07-14T16:04:00Z",
+            "externalReferenceCode": "",
+            "gtin": "",
+            "height": 0,
+            "id": 41454,
+            "manufacturerPartNumber": "",
+            "options": {},
+            "price": 1000,
+            "productId": 41451,
+            "productName": {
+              "en_US": "Pet Store Insurance"
+            },
+            "promoPrice": 1000,
+            "published": true,
+            "purchasable": true,
+            "sku": "RAY001",
+            "unspsc": "",
+            "weight": 0,
+            "width": 0
+          }
+        ],
+        "tags": [],
+        "thumbnail": "/o/commerce-media/default/?groupId=41423",
+        "urls": {
+          "en_US": "pet-store-insurance"
+        },
+        "workflowStatusInfo": {
+          "code": 0,
+          "label": "approved",
+          "label_i18n": "Approved"
+        }
+      }
+    ],
+    "lastPage": 1,
+    "page": 1,
+    "pageSize": 50,
+    "totalCount": 1
+  }
 }
