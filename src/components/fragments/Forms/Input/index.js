@@ -1,16 +1,16 @@
 import React from "react";
+import { Label } from "../Label";
 
 export const Input = React.forwardRef(
-  ({ name, label, renderActions, ...props }, ref) => {
+  ({ name, label, renderActions, required = false, ...props }, ref) => {
     return (
       <div className="input-area">
         {label && (
-          <label htmlFor={name}>
-            {label}
+          <Label name={name} label={label} required={required}>
             {renderActions}
-          </label>
+          </Label>
         )}
-        <input {...props} ref={ref} name={name} />
+        <input {...props} ref={ref} name={name} required={required} />
       </div>
     );
   }
