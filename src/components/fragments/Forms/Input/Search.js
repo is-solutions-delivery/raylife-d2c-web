@@ -1,9 +1,9 @@
 import React from "react";
 import { Label } from "../Label";
 
-export const SelectInput = React.forwardRef(
+export const InputSearch = React.forwardRef(
   (
-    { name, label, children, renderActions, required = false, ...props },
+    { name, label, renderActions, children, required = false, ...props },
     ref
   ) => {
     return (
@@ -13,15 +13,10 @@ export const SelectInput = React.forwardRef(
             {renderActions}
           </Label>
         )}
-        <select
-          {...props}
-          ref={ref}
-          name={name}
-          className="input"
-          required={required}
-        >
+        <div className="content-row">
+          <input {...props} ref={ref} name={name} required={required} />
           {children}
-        </select>
+        </div>
       </div>
     );
   }
