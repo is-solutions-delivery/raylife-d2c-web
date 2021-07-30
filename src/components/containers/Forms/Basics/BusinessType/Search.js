@@ -50,7 +50,7 @@ export const BusinessTypeSearch = () => {
           label="Search for your primary industry and then select it from the list."
           defaultValue=""
           required
-          errors={errors}
+          error={errors?.basics?.businessSearch}
           {...register("basics.businessSearch", {
             required: "Please, search for a business type in order to proceed.",
           })}

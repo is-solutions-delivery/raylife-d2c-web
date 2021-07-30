@@ -3,6 +3,12 @@
   flex-direction: column;
   gap: 0.7rem;
   width: 100%;
+
+  &.invalid {
+    input {
+      border-color: $error-default;
+    }
+  }
 }
 
 label {
@@ -38,10 +44,6 @@ input,
   &:focus,
   &:hover {
     border-color: $primary-default;
-  }
-
-  &.invalid {
-    border-color: $error-default;
   }
 
   &:disabled {
