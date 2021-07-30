@@ -37,7 +37,11 @@ input,
 
   &:focus,
   &:hover {
-    background: $foreground;
+    border-color: $primary-default;
+  }
+
+  &.invalid {
+    border-color: $error-default;
   }
 
   &:disabled {

@@ -9,8 +9,12 @@ import { useBusinessTypes } from "../../../../../hooks/useBusinessTypes";
 import { BusinessTypeRadioGroup } from "./RadioGroup";
 
 export const BusinessTypeSearch = () => {
+  const {
+    register,
+    setValue,
+    formState: { errors },
+  } = useFormContext();
   const form = useWatch();
-  const { register, setValue } = useFormContext();
   const { businessTypes, isLoading, reload } = useBusinessTypes();
 
   useEffect(() => {
@@ -46,7 +50,10 @@ export const BusinessTypeSearch = () => {
           label="Search for your primary industry and then select it from the list."
           defaultValue=""
           required
-          {...register("basics.businessSearch")}
+          errors={errors}
+          {...register("basics.businessSearch", {
+            required: "Please, search for a business type in order to proceed.",
+          })}
         >
           <button
             type="button"

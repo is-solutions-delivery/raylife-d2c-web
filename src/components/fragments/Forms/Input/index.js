@@ -3,6 +3,8 @@ import { Label } from "../Label";
 
 export const Input = React.forwardRef(
   ({ name, label, renderActions, required = false, ...props }, ref) => {
+    console.log(props);
+
     return (
       <div className="input-area">
         {label && (
