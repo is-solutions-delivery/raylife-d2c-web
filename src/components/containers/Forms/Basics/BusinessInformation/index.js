@@ -8,8 +8,14 @@ import { useStepWizard } from "../../../../../hooks/useStepWizard";
 import { InputWithMask } from "../../../../fragments/Forms/Input/WithMask";
 import { LiferayService } from "../../../../../services/liferay";
 import { CardFormActionsWithSave } from "../../../../fragments/Card/FormActionsWithSave";
+import {
+  EMAIL_REGEX,
+  PHONE_REGEX,
+  WEBSITE_REGEX,
+} from "../../../../../utils/patterns";
 
 const setFormPath = (value) => `basics.businessInformation.${value}`;
+const getErrorPath = (errors) => errors?.basics?.businessInformation;
 
 export const FormBasicBusinessInformation = () => {
   const form = useWatch();
@@ -17,7 +23,7 @@ export const FormBasicBusinessInformation = () => {
   const {
     register,
     control,
-    formState: { isValid },
+    formState: { isValid, errors },
   } = useFormContext();
 
   const onSave = async () => {
@@ -42,23 +48,30 @@ export const FormBasicBusinessInformation = () => {
         <div className="content-row">
           <Input
             {...register(setFormPath("firstName"), {
-              required: true,
+              required: "First name is required.",
             })}
+            error={getErrorPath(errors)?.firstName}
             label="First Name"
             required
           />
           <Input
             {...register(setFormPath("lastName"), {
-              required: true,
+              required: "Last name is required.",
             })}
+            error={getErrorPath(errors)?.lastName}
             label="Last Name"
             required
           />
         </div>
         <Input
           {...register(setFormPath("business.email"), {
-            required: true,
+            required: "Email is required.",
+            pattern: {
+              value: EMAIL_REGEX,
+              message: "This should be an email.",
+            },
           })}
+          error={getErrorPath(errors)?.business?.email}
           label="Business Email"
           type="email"
           required
@@ -67,19 +80,32 @@ export const FormBasicBusinessInformation = () => {
           name={setFormPath("business.phone")}
           control={control}
           defaultValue=""
-          rules={{ required: true }}
-          render={({ field }) => (
+          rules={{
+            required: "Phone number is required.",
+            pattern: {
+              value: PHONE_REGEX,
+              message: "The value should be a valid phone number.",
+            },
+          }}
+          render={({ field, fieldState }) => (
             <InputWithMask
               {...field}
-              label="Phone"
+              error={fieldState.error}
               format="(###) ###-####"
+              label="Phone"
               mask="_"
               required
             />
           )}
         />
         <Input
-          {...register(setFormPath("business.website"))}
+          {...register(setFormPath("business.website"), {
+            pattern: {
+              value: WEBSITE_REGEX,
+              message: "This should be a valid website address.",
+            },
+          })}
+          error={getErrorPath(errors)?.business?.website}
           label="Business Website (optional)"
         />
         <BusinessInformationAddress />

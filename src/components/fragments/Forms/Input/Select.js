@@ -1,13 +1,14 @@
 import React from "react";
+import { InputAreaWithError } from "../InputArea/WithError";
 import { Label } from "../Label";
 
 export const SelectInput = React.forwardRef(
   (
-    { name, label, children, renderActions, required = false, ...props },
+    { name, label, children, renderActions, error, required = false, ...props },
     ref
   ) => {
     return (
-      <div className="input-area">
+      <InputAreaWithError error={error}>
         {label && (
           <Label name={name} label={label} required={required}>
             {renderActions}
@@ -22,7 +23,7 @@ export const SelectInput = React.forwardRef(
         >
           {children}
         </select>
-      </div>
+      </InputAreaWithError>
     );
   }
 );

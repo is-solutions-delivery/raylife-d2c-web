@@ -1,15 +1,15 @@
 import React from "react";
 
 import { Label } from "../Label";
-import { WarningBadge } from "../../Badges/Warning";
+import { InputAreaWithError } from "../InputArea/WithError";
 
-export const InputSearch = React.forwardRef(
+export const SearchInput = React.forwardRef(
   (
     { name, label, renderActions, children, required = false, error, ...props },
     ref
   ) => {
     return (
-      <div className={`input-area ${!!error && "invalid"}`}>
+      <InputAreaWithError error={error}>
         {label && (
           <Label name={name} label={label} required={required}>
             {renderActions}
@@ -19,8 +19,7 @@ export const InputSearch = React.forwardRef(
           <input {...props} ref={ref} name={name} required={required} />
           {children}
         </div>
-        {error && <WarningBadge>{error.message}</WarningBadge>}
-      </div>
+      </InputAreaWithError>
     );
   }
 );

@@ -4,7 +4,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import useDebounce from "lodash.debounce";
 
 import { WarningBadge } from "../../../../fragments/Badges/Warning";
-import { InputSearch } from "../../../../fragments/Forms/Input/Search";
+import { SearchInput } from "../../../../fragments/Forms/Input/Search";
 import { useBusinessTypes } from "../../../../../hooks/useBusinessTypes";
 import { BusinessTypeRadioGroup } from "./RadioGroup";
 
@@ -46,7 +46,7 @@ export const BusinessTypeSearch = () => {
   return (
     <>
       <div className="content-column">
-        <InputSearch
+        <SearchInput
           label="Search for your primary industry and then select it from the list."
           defaultValue=""
           required
@@ -63,7 +63,7 @@ export const BusinessTypeSearch = () => {
           >
             Search
           </button>
-        </InputSearch>
+        </SearchInput>
         <p className="paragraph">
           i.e. Coffee shop, Plumber, Drop Shipping, Landscape, etc
         </p>
