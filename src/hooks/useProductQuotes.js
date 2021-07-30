@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useWatch } from "react-hook-form";
 import { LiferayService } from "../services/liferay";
