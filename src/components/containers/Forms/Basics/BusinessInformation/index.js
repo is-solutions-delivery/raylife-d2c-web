@@ -45,12 +45,14 @@ export const FormBasicBusinessInformation = () => {
               required: true,
             })}
             label="First Name"
+            required
           />
           <Input
             {...register(setFormPath("lastName"), {
               required: true,
             })}
             label="Last Name"
+            required
           />
         </div>
         <Input
@@ -59,6 +61,7 @@ export const FormBasicBusinessInformation = () => {
           })}
           label="Business Email"
           type="email"
+          required
         />
         <Controller
           name={setFormPath("business.phone")}
@@ -71,6 +74,7 @@ export const FormBasicBusinessInformation = () => {
               label="Phone"
               format="(###) ###-####"
               mask="_"
+              required
             />
           )}
         />
