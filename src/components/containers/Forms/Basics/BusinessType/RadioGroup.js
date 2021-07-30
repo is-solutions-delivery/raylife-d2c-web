@@ -35,7 +35,7 @@ export const BusinessTypeRadioGroup = ({ businessTypes = [] }) => {
         name="basics.businessCategoryId"
         defaultValue=""
         control={control}
-        rules={{ required: true }}
+        rules={{ required: "Please, Select a field." }}
         render={({ field }) =>
           businessTypes.map((businessType) => (
             <Radio
