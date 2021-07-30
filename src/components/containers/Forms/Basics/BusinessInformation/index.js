@@ -5,7 +5,6 @@ import { BusinessInformationAddress } from "./Address";
 import { Input } from "../../../../fragments/Forms/Input";
 import { AVAILABLE_STEPS } from "../../../../../utils/constants";
 import { useStepWizard } from "../../../../../hooks/useStepWizard";
-import { InputWithMask } from "../../../../fragments/Forms/Input/WithMask";
 import { LiferayService } from "../../../../../services/liferay";
 import { CardFormActionsWithSave } from "../../../../fragments/Card/FormActionsWithSave";
 import {
@@ -13,6 +12,7 @@ import {
   PHONE_REGEX,
   WEBSITE_REGEX,
 } from "../../../../../utils/patterns";
+import { InputWithPhoneMask } from "../../../../fragments/Forms/Input/WithMask/Phone";
 
 const setFormPath = (value) => `basics.businessInformation.${value}`;
 const getErrorPath = (errors) => errors?.basics?.businessInformation;
@@ -88,14 +88,7 @@ export const FormBasicBusinessInformation = () => {
             },
           }}
           render={({ field, fieldState }) => (
-            <InputWithMask
-              {...field}
-              error={fieldState.error}
-              format="(###) ###-####"
-              label="Phone"
-              mask="_"
-              required
-            />
+            <InputWithPhoneMask {...field} error={fieldState.error} />
           )}
         />
         <Input

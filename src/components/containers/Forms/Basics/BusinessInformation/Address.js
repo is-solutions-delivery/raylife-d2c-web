@@ -4,8 +4,8 @@ import { Controller, useFormContext } from "react-hook-form";
 import { useLocation } from "../../../../../hooks/useLocation";
 import { ZIP_REGEX } from "../../../../../utils/patterns";
 import { Input } from "../../../../fragments/Forms/Input";
-import { SelectInput } from "../../../../fragments/Forms/Input/Select";
-import { InputWithMask } from "../../../../fragments/Forms/Input/WithMask";
+import { SelectInput } from "../../../../fragments/Forms/Select";
+import { InputWithZipMask } from "../../../../fragments/Forms/Input/WithMask/Zip";
 
 const setFormPath = (value) =>
   `basics.businessInformation.business.location.${value}`;
@@ -110,14 +110,7 @@ export const BusinessInformationAddress = () => {
             },
           }}
           render={({ field, fieldState }) => (
-            <InputWithMask
-              {...field}
-              error={fieldState.error}
-              format="#####"
-              label="ZIP"
-              mask="_"
-              required
-            />
+            <InputWithZipMask {...field} error={fieldState.error} required />
           )}
         />
       </div>
