@@ -5,18 +5,19 @@ import { Input } from "../../fragments/Forms/Input";
 import { Switch } from "../../fragments/Forms/Switch";
 import { AVAILABLE_STEPS } from "../../../utils/constants";
 import { useStepWizard } from "../../../hooks/useStepWizard";
-import { InputWithMask } from "../../fragments/Forms/Input/WithMask";
 import { MoreInfoButton } from "../../fragments/Buttons/MoreInfo";
 import { INPUT_INFO_EVENT } from "../../../events";
 import { CardFormActionsWithSave } from "../../fragments/Card/FormActionsWithSave";
+import { InputWithPercentageMask } from "../../fragments/Forms/Input/WithMask/Percentage";
 
 const setFormPath = (value) => `business.${value}`;
+const getErroPath = (errors) => errors?.business;
 
 export const FormBusiness = () => {
   const {
     register,
     control,
-    formState: { isValid },
+    formState: { isValid, errors },
   } = useFormContext();
   const { setSection } = useStepWizard();
 
@@ -29,18 +30,23 @@ export const FormBusiness = () => {
     <div className="card">
       <div className="card-content">
         <Input
-          name="yearsOfExperience"
           label="Years of industry experience?"
+          type="number"
+          min={0}
+          required
+          error={getErroPath(errors)?.yearsOfExperience}
           renderActions={
             <MoreInfoButton
               event={INPUT_INFO_EVENT}
               value="yearsOfExperience"
             />
           }
-          type="number"
-          min={0}
           {...register(setFormPath("yearsOfExperience"), {
-            required: true,
+            required: "Years of industry experience is required.",
+            min: {
+              value: 0,
+              message: "Must be equal or grater than 0.",
+            },
           })}
         />
         <Controller
@@ -52,6 +58,7 @@ export const FormBusiness = () => {
             <Switch
               {...field}
               label="Do you store personally identifiable information about your customers?"
+              required
             />
           )}
         />
@@ -61,16 +68,20 @@ export const FormBusiness = () => {
           control={control}
           rules={{ required: true }}
           render={({ field }) => (
-            <Switch {...field} label="Do you have a Raylife Auto policy?" />
+            <Switch
+              {...field}
+              label="Do you have a Raylife Auto policy?"
+              required
+            />
           )}
         />
         <Controller
           name={setFormPath("salesMerchandise")}
           control={control}
           defaultValue=""
-          rules={{ required: true }}
-          render={({ field }) => (
-            <InputWithMask
+          rules={{ required: "Percent of sales is required." }}
+          render={({ field, fieldState }) => (
+            <InputWithPercentageMask
               {...field}
               renderActions={
                 <MoreInfoButton
@@ -79,9 +90,8 @@ export const FormBusiness = () => {
                 />
               }
               label="Percent of sales from used merchandise?"
-              suffix="%"
-              mask="_"
-              decimalScale={2}
+              error={fieldState.error}
+              required
             />
           )}
         />
@@ -94,6 +104,7 @@ export const FormBusiness = () => {
             <Switch
               {...field}
               label="Do you sell products under your own brand or label?"
+              required
             />
           )}
         />
