@@ -16,7 +16,13 @@ export const SearchInput = React.forwardRef(
           </Label>
         )}
         <div className="content-row">
-          <input {...props} ref={ref} name={name} required={required} />
+          <input
+            {...props}
+            ref={ref}
+            name={name}
+            required={required}
+            maxLength={256}
+          />
           {children}
         </div>
       </InputAreaWithError>
