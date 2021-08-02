@@ -2,7 +2,7 @@ import React from "react";
 import { InputAreaWithError } from "./InputArea/WithError";
 import { Label } from "./Label";
 
-export const SelectInput = React.forwardRef(
+export const Select = React.forwardRef(
   (
     { name, label, children, renderActions, error, required = false, ...props },
     ref

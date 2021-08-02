@@ -1,20 +1,22 @@
 import React from "react";
-import { Controller, useFormContext, useWatch } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 
-import { Input } from "../../fragments/Forms/Input";
-import { Switch } from "../../fragments/Forms/Switch";
 import { AVAILABLE_STEPS } from "../../../utils/constants";
 import { useStepWizard } from "../../../hooks/useStepWizard";
-import { InputWithMask } from "../../fragments/Forms/Input/WithMask";
-import { MoreInfoButton } from "../../fragments/Buttons/MoreInfo";
 import { INPUT_INFO_EVENT } from "../../../events";
 import { CardFormActionsWithSave } from "../../fragments/Card/FormActionsWithSave";
+import { ControlledSwitch } from "../../connectors/Controlled/Switch";
+import { NumberControlledInput } from "../../connectors/Controlled/Input/Number";
+import { FEINControlledInput } from "../../connectors/Controlled/Input/WithMask/FEIN";
+import { YearControlledInput } from "../../connectors/Controlled/Input/WithMask/Year";
+import { CurrencyControlledInput } from "../../connectors/Controlled/Input/WithMask/Currency";
 
 const setFormPath = (value) => `employees.${value}`;
 
+const hasFein = (value) => value === "true";
+
 export const FormEmployees = () => {
   const {
-    register,
     control,
     formState: { isValid },
   } = useFormContext();
@@ -28,123 +30,67 @@ export const FormEmployees = () => {
   return (
     <div className="card">
       <div className="card-content">
-        <Controller
+        <ControlledSwitch
           name={setFormPath("hasFein")}
-          defaultValue="false"
-          control={control}
+          label="Does your business have a Federal Employer Identification Number (FEIN)?"
           rules={{ required: true }}
-          render={({ field }) => (
-            <Switch
-              {...field}
-              label="Does your business have a Federal Employer Identification Number (FEIN)?"
-            />
-          )}
+          control={control}
         />
-        {form?.employees?.hasFein === "true" && (
-          <Controller
+        {hasFein(form?.employees?.hasFein) && (
+          <FEINControlledInput
             name={setFormPath("fein")}
-            defaultValue=""
+            label="Federal Employer Identification Number (FEIN)"
+            rules={{
+              required: "FEIN is required.",
+            }}
             control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <InputWithMask
-                {...field}
-                renderActions={
-                  <MoreInfoButton event={INPUT_INFO_EVENT} value="fein" />
-                }
-                label="Federal Employer Identification Number (FEIN)"
-                format="##-#######"
-                mask="_"
-              />
-            )}
           />
         )}
-        <Controller
+        <YearControlledInput
           name={setFormPath("startBusinessAtYear")}
-          defaultValue=""
+          label="What year did you start your business?"
+          rules={{ required: "This field is required" }}
           control={control}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <InputWithMask
-              {...field}
-              label="What year did you start your business?"
-              format="####"
-              mask="_"
-            />
-          )}
         />
-        <Controller
+        <ControlledSwitch
           name={setFormPath("businessOperatesYearRound")}
-          defaultValue="false"
-          control={control}
+          label="Does your business operate year round?"
           rules={{ required: true }}
-          render={({ field }) => (
-            <Switch {...field} label="Does your business operate year round?" />
-          )}
+          control={control}
         />
-        <Input
-          name="partTimeEmployees"
+        <NumberControlledInput
+          name={setFormPath("partTimeEmployees")}
           label="How many full or part time employees do you have?"
-          renderActions={
-            <MoreInfoButton
-              event={INPUT_INFO_EVENT}
-              value="partTimeEmployees"
-            />
-          }
-          type="number"
-          min={0}
-          {...register(setFormPath("partTimeEmployees"), {
-            required: true,
-            min: 0,
-          })}
+          rules={{
+            required: "This field is required",
+            min: {
+              value: 0,
+              message: "Must be equal or grater than 0.",
+            },
+          }}
+          moreInfoProps={{
+            event: INPUT_INFO_EVENT,
+            value: "partTimeEmployees",
+          }}
+          control={control}
         />
-        <Controller
+        <CurrencyControlledInput
           name={setFormPath("estimatedAnnualGrossRevenue")}
-          defaultValue=""
+          label="What is your estimated annual gross revenue for the next 12 months?"
+          rules={{ required: "This field is required" }}
           control={control}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <InputWithMask
-              {...field}
-              label="What is your estimated annual gross revenue for the next 12 months?"
-              prefix="$"
-              decimalScale={2}
-              thousandSeparator
-              fixedDecimalScale
-            />
-          )}
         />
-        <Controller
+        <CurrencyControlledInput
           name={setFormPath("annualPayrollForOwner")}
-          defaultValue=""
+          label="What do you anticipate your annual payroll will be for all owner(s) over the next 12 months?"
+          rules={{ required: "This field is required" }}
           control={control}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <InputWithMask
-              {...field}
-              label="What do you anticipate your annual payroll will be for all owner(s) over the next 12 months?"
-              prefix="$"
-              decimalScale={2}
-              thousandSeparator
-              fixedDecimalScale
-            />
-          )}
         />
-        <Controller
+        <CurrencyControlledInput
           name={setFormPath("annualPayrollForEmployees")}
-          defaultValue=""
+          label="What do you anticipate your annual payroll will be for all employees over the next 12 months?"
+          rules={{ required: "This field is required" }}
           control={control}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <InputWithMask
-              {...field}
-              label="What do you anticipate your annual payroll will be for all employees over the next 12 months?"
-              prefix="$"
-              decimalScale={2}
-              thousandSeparator
-              fixedDecimalScale
-            />
-          )}
         />
       </div>
       <CardFormActionsWithSave

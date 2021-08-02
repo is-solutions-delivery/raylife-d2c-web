@@ -1,23 +1,20 @@
 import React from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
-import { Input } from "../../fragments/Forms/Input";
-import { Switch } from "../../fragments/Forms/Switch";
 import { AVAILABLE_STEPS } from "../../../utils/constants";
 import { useStepWizard } from "../../../hooks/useStepWizard";
-import { MoreInfoButton } from "../../fragments/Buttons/MoreInfo";
 import { INPUT_INFO_EVENT } from "../../../events";
 import { CardFormActionsWithSave } from "../../fragments/Card/FormActionsWithSave";
-import { InputWithPercentageMask } from "../../fragments/Forms/Input/WithMask/Percentage";
+import { ControlledSwitch } from "../../connectors/Controlled/Switch";
+import { NumberControlledInput } from "../../connectors/Controlled/Input/Number";
+import { PercentageControlledInput } from "../../connectors/Controlled/Input/WithMask/Percentage";
 
 const setFormPath = (value) => `business.${value}`;
-const getErroPath = (errors) => errors?.business;
 
 export const FormBusiness = () => {
   const {
-    register,
     control,
-    formState: { isValid, errors },
+    formState: { isValid },
   } = useFormContext();
   const { setSection } = useStepWizard();
 
@@ -29,84 +26,51 @@ export const FormBusiness = () => {
   return (
     <div className="card">
       <div className="card-content">
-        <Input
+        <NumberControlledInput
+          name={setFormPath("yearsOfExperience")}
           label="Years of industry experience?"
-          type="number"
-          min={0}
-          required
-          error={getErroPath(errors)?.yearsOfExperience}
-          renderActions={
-            <MoreInfoButton
-              event={INPUT_INFO_EVENT}
-              value="yearsOfExperience"
-            />
-          }
-          {...register(setFormPath("yearsOfExperience"), {
-            required: "Years of industry experience is required.",
+          rules={{
+            required: "This field is required",
             min: {
               value: 0,
               message: "Must be equal or grater than 0.",
             },
-          })}
+          }}
+          moreInfoProps={{
+            event: INPUT_INFO_EVENT,
+            value: "yearsOfExperience",
+          }}
+          control={control}
         />
-        <Controller
+        <ControlledSwitch
           name={setFormPath("hasStoredCustomerInformation")}
-          defaultValue="false"
-          control={control}
+          label="Do you store personally identifiable information about your customers?"
           rules={{ required: true }}
-          render={({ field }) => (
-            <Switch
-              {...field}
-              label="Do you store personally identifiable information about your customers?"
-              required
-            />
-          )}
+          control={control}
         />
-        <Controller
+        <ControlledSwitch
           name={setFormPath("hasAutoPolicy")}
-          defaultValue="false"
-          control={control}
+          label="Do you have a Raylife Auto policy?"
           rules={{ required: true }}
-          render={({ field }) => (
-            <Switch
-              {...field}
-              label="Do you have a Raylife Auto policy?"
-              required
-            />
-          )}
+          control={control}
         />
-        <Controller
+        <PercentageControlledInput
           name={setFormPath("salesMerchandise")}
+          label="Percent of sales from used merchandise?"
+          rules={{
+            required: "Percent of sales is required.",
+          }}
+          moreInfoProps={{
+            event: INPUT_INFO_EVENT,
+            value: "salesMerchandise",
+          }}
           control={control}
-          defaultValue=""
-          rules={{ required: "Percent of sales is required." }}
-          render={({ field, fieldState }) => (
-            <InputWithPercentageMask
-              {...field}
-              renderActions={
-                <MoreInfoButton
-                  event={INPUT_INFO_EVENT}
-                  value="salesMerchandise"
-                />
-              }
-              label="Percent of sales from used merchandise?"
-              error={fieldState.error}
-              required
-            />
-          )}
         />
-        <Controller
+        <ControlledSwitch
           name={setFormPath("hasSellProductsUnderOwnBrand")}
-          defaultValue="false"
-          control={control}
+          label="Do you sell products under your own brand or label?"
           rules={{ required: true }}
-          render={({ field }) => (
-            <Switch
-              {...field}
-              label="Do you sell products under your own brand or label?"
-              required
-            />
-          )}
+          control={control}
         />
       </div>
       <CardFormActionsWithSave
