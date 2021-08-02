@@ -15,7 +15,7 @@ $background: var(--body-bg, #ffffff);
 $foreground: var(--light, #f9f9f9);
 
 $error-default: var(--danger, #ea6136);
-$error-light: var(--danger, #ffe4dc);
+$error-light: var(--danger-background, #ffe4dc);
 
 $font-family: var(
   --font-family-sans-serif,
