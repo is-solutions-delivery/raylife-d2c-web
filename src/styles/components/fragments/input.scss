@@ -1,8 +1,11 @@
 .input-area {
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
   width: 100%;
+
+  & > label {
+    margin-bottom: 0.7rem;
+  }
 
   &.invalid {
     input {
