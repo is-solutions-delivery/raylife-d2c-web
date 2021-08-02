@@ -1,18 +1,15 @@
 import React from "react";
-import { Controller, useFormContext, useWatch } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 
 import { BusinessInformationAddress } from "./Address";
 import { Input } from "../../../../fragments/Forms/Input";
 import { AVAILABLE_STEPS } from "../../../../../utils/constants";
-import { useStepWizard } from "../../../../../hooks/useStepWizard";
 import { LiferayService } from "../../../../../services/liferay";
+import { useStepWizard } from "../../../../../hooks/useStepWizard";
 import { CardFormActionsWithSave } from "../../../../fragments/Card/FormActionsWithSave";
-import {
-  EMAIL_REGEX,
-  PHONE_REGEX,
-  WEBSITE_REGEX,
-} from "../../../../../utils/patterns";
-import { InputWithPhoneMask } from "../../../../fragments/Forms/Input/WithMask/Phone";
+import { EmailControlledInput } from "../../../../connectors/Controlled/Input/Email";
+import { WebsiteControlledInput } from "../../../../connectors/Controlled/Input/Website";
+import { PhoneControlledInput } from "../../../../connectors/Controlled/Input/WithMask/Phone";
 
 const setFormPath = (value) => `basics.businessInformation.${value}`;
 const getErrorPath = (errors) => errors?.basics?.businessInformation;
@@ -63,43 +60,26 @@ export const FormBasicBusinessInformation = () => {
             required
           />
         </div>
-        <Input
-          {...register(setFormPath("business.email"), {
-            required: "Email is required.",
-            pattern: {
-              value: EMAIL_REGEX,
-              message: "This should be an email.",
-            },
-          })}
-          error={getErrorPath(errors)?.business?.email}
+        <EmailControlledInput
+          name={setFormPath("business.email")}
           label="Business Email"
-          type="email"
-          required
-        />
-        <Controller
-          name={setFormPath("business.phone")}
+          rules={{
+            required: "Email is required.",
+          }}
           control={control}
-          defaultValue=""
+        />
+        <PhoneControlledInput
+          name={setFormPath("business.phone")}
+          label="Phone"
           rules={{
             required: "Phone number is required.",
-            pattern: {
-              value: PHONE_REGEX,
-              message: "The value should be a valid phone number.",
-            },
           }}
-          render={({ field, fieldState }) => (
-            <InputWithPhoneMask {...field} error={fieldState.error} />
-          )}
+          control={control}
         />
-        <Input
-          {...register(setFormPath("business.website"), {
-            pattern: {
-              value: WEBSITE_REGEX,
-              message: "This should be a valid website address.",
-            },
-          })}
-          error={getErrorPath(errors)?.business?.website}
+        <WebsiteControlledInput
+          name={setFormPath("business.website")}
           label="Business Website (optional)"
+          control={control}
         />
         <BusinessInformationAddress />
       </div>

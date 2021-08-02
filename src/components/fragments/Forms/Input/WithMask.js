@@ -1,7 +1,7 @@
 import React from "react";
 import ReactInputMask from "react-number-format";
-import { InputAreaWithError } from "../../InputArea/WithError";
-import { Label } from "../../Label";
+import { InputAreaWithError } from "../InputArea/WithError";
+import { Label } from "../Label";
 
 export const InputWithMask = React.forwardRef(
   (

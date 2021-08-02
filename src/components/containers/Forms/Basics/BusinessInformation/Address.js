@@ -1,26 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef } from "react";
-import { Controller, useFormContext } from "react-hook-form";
-import { useLocation } from "../../../../../hooks/useLocation";
-import { ZIP_REGEX } from "../../../../../utils/patterns";
+import { useFormContext } from "react-hook-form";
+
 import { Input } from "../../../../fragments/Forms/Input";
-import { SelectInput } from "../../../../fragments/Forms/Select";
-import { InputWithZipMask } from "../../../../fragments/Forms/Input/WithMask/Zip";
+import { useLocation } from "../../../../../hooks/useLocation";
+import { ControlledInput } from "../../../../connectors/Controlled/Input";
+import { ZIPControlledInput } from "../../../../connectors/Controlled/Input/WithMask/ZIP";
+import { StatesControlledSelect } from "../../../../connectors/Controlled/Select/States";
 
 const setFormPath = (value) =>
   `basics.businessInformation.business.location.${value}`;
-const getErrorPath = (errors) =>
-  errors?.basics?.businessInformation?.business?.location;
 
 export const BusinessInformationAddress = () => {
   const ref = useRef();
-  const { states, setAutoComplete } = useLocation();
-  const {
-    register,
-    control,
-    setValue,
-    formState: { errors },
-  } = useFormContext();
+  const { setAutoComplete } = useLocation();
+  const { register, control, setValue } = useFormContext();
 
   useEffect(() => {
     if (ref.current) setAutoComplete(ref.current, updateFormWithGoogleAddress);
@@ -45,21 +39,15 @@ export const BusinessInformationAddress = () => {
           gridTemplateColumns: "1fr 35%",
         }}
       >
-        <Controller
+        <ControlledInput
           name={setFormPath("address")}
-          control={control}
-          defaultValue=""
+          label="Physical Business Address"
           rules={{ required: "Business address is required." }}
-          render={({ field, fieldState }) => (
-            <Input
-              {...field}
-              ref={ref}
-              error={fieldState.error}
-              label="Physical Business Address"
-              placeholder="Street address"
-              required
-            />
-          )}
+          control={control}
+          inputProps={{
+            ref,
+            placeholder: "Street address",
+          }}
         />
         <Input
           {...register(setFormPath("addressApt"))}
@@ -74,44 +62,28 @@ export const BusinessInformationAddress = () => {
           gridTemplateColumns: "1fr 15% 25%",
         }}
       >
-        <Input
-          {...register(setFormPath("city"), {
-            required: "City is required.",
-          })}
-          error={getErrorPath(errors)?.city}
+        <ControlledInput
+          name={setFormPath("city")}
           label="City"
-          required
-        />
-        <SelectInput
-          {...register(setFormPath("state"), {
-            maxLength: 2,
-            pattern: /[A-Za-z]/g,
-            required: true,
-            value: "AL",
-          })}
-          label="State"
-          maxLength={2}
-        >
-          {states.map(({ abbreviation }, index) => (
-            <option key={`${abbreviation}-${index}`} value={abbreviation}>
-              {abbreviation}
-            </option>
-          ))}
-        </SelectInput>
-        <Controller
-          name={setFormPath("zip")}
+          rules={{ required: "City is required." }}
           control={control}
-          defaultValue=""
+        />
+
+        <StatesControlledSelect
+          name={setFormPath("state")}
+          label="State"
+          control={control}
+          rules={{
+            required: "This field is required.",
+          }}
+        />
+        <ZIPControlledInput
+          name={setFormPath("zip")}
+          label="ZIP"
+          control={control}
           rules={{
             required: "ZIP is required.",
-            pattern: {
-              value: ZIP_REGEX,
-              message: "ZIP must be a five digit number.",
-            },
           }}
-          render={({ field, fieldState }) => (
-            <InputWithZipMask {...field} error={fieldState.error} required />
-          )}
         />
       </div>
     </>

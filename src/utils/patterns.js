@@ -1,4 +1,10 @@
+export const STATE_REGEX = /^\w{2}$/g;
+
 export const ZIP_REGEX = /[0-9]{5}/g;
+
+export const FEIN_REGEX = /^\d{2}-\d{7}$/g;
+
+export const PERCENTAGE_REGEX = /^(\d)+(\.(\d)+)?%$/g;
 
 export const PHONE_REGEX = /\((\d{3})\)\s\d{3}-\d{4}/g;
 
