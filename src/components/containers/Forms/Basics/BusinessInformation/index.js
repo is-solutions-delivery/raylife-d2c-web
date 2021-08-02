@@ -2,7 +2,6 @@ import React from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 
 import { BusinessInformationAddress } from "./Address";
-import { Input } from "../../../../fragments/Forms/Input";
 import { AVAILABLE_STEPS } from "../../../../../utils/constants";
 import { LiferayService } from "../../../../../services/liferay";
 import { useStepWizard } from "../../../../../hooks/useStepWizard";
@@ -10,17 +9,16 @@ import { CardFormActionsWithSave } from "../../../../fragments/Card/FormActionsW
 import { EmailControlledInput } from "../../../../connectors/Controlled/Input/Email";
 import { WebsiteControlledInput } from "../../../../connectors/Controlled/Input/Website";
 import { PhoneControlledInput } from "../../../../connectors/Controlled/Input/WithMask/Phone";
+import { ControlledInput } from "../../../../connectors/Controlled/Input";
 
 const setFormPath = (value) => `basics.businessInformation.${value}`;
-const getErrorPath = (errors) => errors?.basics?.businessInformation;
 
 export const FormBasicBusinessInformation = () => {
   const form = useWatch();
   const { setSection } = useStepWizard();
   const {
-    register,
     control,
-    formState: { isValid, errors },
+    formState: { isValid },
   } = useFormContext();
 
   const onSave = async () => {
@@ -43,38 +41,38 @@ export const FormBasicBusinessInformation = () => {
     <div className="card">
       <div className="card-content">
         <div className="content-row">
-          <Input
-            {...register(setFormPath("firstName"), {
-              required: "First name is required.",
-            })}
-            error={getErrorPath(errors)?.firstName}
+          <ControlledInput
+            name={setFormPath("firstName")}
             label="First Name"
-            required
+            control={control}
+            rules={{
+              required: "First name is required.",
+            }}
           />
-          <Input
-            {...register(setFormPath("lastName"), {
+          <ControlledInput
+            name={setFormPath("lastName")}
+            label="Last name"
+            control={control}
+            rules={{
               required: "Last name is required.",
-            })}
-            error={getErrorPath(errors)?.lastName}
-            label="Last Name"
-            required
+            }}
           />
         </div>
         <EmailControlledInput
           name={setFormPath("business.email")}
           label="Business Email"
+          control={control}
           rules={{
             required: "Email is required.",
           }}
-          control={control}
         />
         <PhoneControlledInput
           name={setFormPath("business.phone")}
           label="Phone"
+          control={control}
           rules={{
             required: "Phone number is required.",
           }}
-          control={control}
         />
         <WebsiteControlledInput
           name={setFormPath("business.website")}
