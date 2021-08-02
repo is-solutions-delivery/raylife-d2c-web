@@ -1,12 +1,8 @@
 import React from "react";
-import { Controller, useFormContext, useWatch } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 
-import { Input } from "../../fragments/Forms/Input";
-import { Switch } from "../../fragments/Forms/Switch";
 import { AVAILABLE_STEPS } from "../../../utils/constants";
 import { useStepWizard } from "../../../hooks/useStepWizard";
-import { InputWithMask } from "../../fragments/Forms/Input/WithMask";
-import { MoreInfoButton } from "../../fragments/Buttons/MoreInfo";
 import { INPUT_INFO_EVENT } from "../../../events";
 import { CardFormActionsWithSave } from "../../fragments/Card/FormActionsWithSave";
 import { ControlledSwitch } from "../../connectors/Controlled/Switch";
